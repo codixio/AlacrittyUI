@@ -26,7 +26,7 @@ Download the latest release for your platform from the [Releases](https://github
 Or build from source:
 
 ```
-git clone https://github.com/youruser/AlacrittyUI.git
+git clone https://github.com/codixio/AlacrittyUI.git
 cd AlacrittyUI
 dotnet build src/AlacrittyUI/AlacrittyUI.csproj -c Release
 ```
