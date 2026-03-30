@@ -1,3 +1,4 @@
+using System.Globalization;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -23,6 +24,12 @@ public partial class App : Application
 
         var appSettings = new AppSettingsService();
         appSettings.Load();
+
+        // apply language setting before any UI is created
+        var culture = new CultureInfo(appSettings.Settings.Language);
+        CultureInfo.CurrentUICulture = culture;
+        CultureInfo.CurrentCulture = culture;
+
         services.AddSingleton(appSettings);
 
         services.AddSingleton<ConfigDiscoveryService>();

@@ -79,6 +79,20 @@
 
             <Separator />
 
+            <!-- Language -->
+            <StackPanel Spacing="6" HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal" Spacing="12" HorizontalAlignment="Center">
+                    <TextBlock Text="{x:Static res:Strings.InfoLanguage}" VerticalAlignment="Center"
+                               FontWeight="SemiBold" />
+                    <ComboBox ItemsSource="{Binding LanguageOptions}"
+                              SelectedItem="{Binding SelectedLanguage}" MinWidth="150" />
+                </StackPanel>
+                <TextBlock Text="{Binding RestartHint}" FontSize="12" Opacity="0.5"
+                           HorizontalAlignment="Center" />
+            </StackPanel>
+
+            <Separator />
+
             <!-- Copyright -->
             <TextBlock HorizontalAlignment="Center" Opacity="0.5" FontSize="12">
                 <Run Text="&#169; " /><Run Text="{Binding Year}" /><Run Text=" " /><Run Text="{Binding Developer}" />

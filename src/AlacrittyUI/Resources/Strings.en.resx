@@ -69,6 +69,8 @@
   <data name="InfoDescription" xml:space="preserve"><value>Visual editor for Alacritty terminal configuration</value></data>
   <data name="InfoDeveloper" xml:space="preserve"><value>Developer</value></data>
   <data name="InfoAlacrittyVersion" xml:space="preserve"><value>Alacritty Version</value></data>
+  <data name="InfoLanguage" xml:space="preserve"><value>Language</value></data>
+  <data name="InfoRestartHint" xml:space="preserve"><value>Restart required after language change</value></data>
   <!-- Theme manager -->
   <data name="ThemeBuiltIn" xml:space="preserve"><value>Built-in</value></data>
   <data name="ThemeUser" xml:space="preserve"><value>User Themes</value></data>

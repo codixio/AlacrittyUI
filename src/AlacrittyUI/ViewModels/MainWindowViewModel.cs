@@ -100,7 +100,7 @@ public partial class MainWindowViewModel : ObservableObject
         Keyboard = new KeyboardViewModel();
         Debug = new DebugViewModel();
         ThemeManager = new ThemeManagerViewModel(themeService, this);
-        Info = new InfoViewModel();
+        Info = new InfoViewModel(appSettings);
 
         SubscribeToChanges();
         InitializeConfig();

@@ -1,10 +1,14 @@
 using System.Reflection;
+using AlacrittyUI.Resources;
+using AlacrittyUI.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace AlacrittyUI.ViewModels;
 
 public partial class InfoViewModel : ObservableObject
 {
+    private readonly AppSettingsService _appSettings;
+
     public string AppName => "AlacrittyUI";
 
     public string Version
@@ -23,4 +27,24 @@ public partial class InfoViewModel : ObservableObject
     public string AlacrittyRepoUrl => "https://github.com/alacritty/alacritty";
     public string AlacrittyVersion => "0.15+";
     public string Year => "2026";
+
+    [ObservableProperty]
+    private string _selectedLanguage;
+
+    public string[] LanguageOptions { get; } = ["English", "Deutsch"];
+
+    public string RestartHint => Strings.InfoRestartHint;
+
+    public InfoViewModel(AppSettingsService appSettings)
+    {
+        _appSettings = appSettings;
+        _selectedLanguage = _appSettings.Settings.Language == "de" ? "Deutsch" : "English";
+    }
+
+    partial void OnSelectedLanguageChanged(string value)
+    {
+        var code = value == "Deutsch" ? "de" : "en";
+        _appSettings.Settings.Language = code;
+        _appSettings.Save();
+    }
 }

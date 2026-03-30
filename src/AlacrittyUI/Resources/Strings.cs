@@ -57,6 +57,8 @@ public static class Strings
     public static string InfoDescription => Get(nameof(InfoDescription));
     public static string InfoDeveloper => Get(nameof(InfoDeveloper));
     public static string InfoAlacrittyVersion => Get(nameof(InfoAlacrittyVersion));
+    public static string InfoLanguage => Get(nameof(InfoLanguage));
+    public static string InfoRestartHint => Get(nameof(InfoRestartHint));
 
     // Theme manager
     public static string ThemeBuiltIn => Get(nameof(ThemeBuiltIn));

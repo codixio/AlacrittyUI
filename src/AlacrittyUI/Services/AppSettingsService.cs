@@ -11,6 +11,7 @@ public class AppSettings
     public double? WindowY { get; set; }
     public double UiScale { get; set; } = 1.0;
     public string? LastConfigPath { get; set; }
+    public string Language { get; set; } = "en";
 }
 
 public class AppSettingsService
