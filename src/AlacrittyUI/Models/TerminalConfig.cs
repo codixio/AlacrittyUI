@@ -11,7 +11,7 @@ public class TerminalConfig
 
     // shell
     public string ShellProgram { get; set; } = string.Empty;
-    public string ShellArgs { get; set; } = string.Empty;
+    public List<string> ShellArgs { get; set; } = [];
 
     // selection
     public bool SaveToClipboard { get; set; }
@@ -32,6 +32,7 @@ public class TerminalConfig
     public int BellDuration { get; set; }
     public string BellColor { get; set; } = "#ffffff";
     public string BellCommand { get; set; } = string.Empty;
+    public List<string> BellCommandArgs { get; set; } = [];
 
     public static readonly string[] Osc52Options = ["Disabled", "OnlyCopy", "OnlyPaste", "CopyPaste"];
     public static readonly string[] BellAnimationOptions = ["Ease", "EaseOut", "EaseOutSine", "EaseOutQuad", "EaseOutCubic", "EaseOutQuart", "EaseOutQuint", "EaseOutExpo", "EaseOutCirc", "Linear"];

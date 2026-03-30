@@ -25,6 +25,8 @@
                     <Button Content="{x:Static res:Strings.ButtonSave}"
                             Command="{Binding SaveCommand}"
                             IsEnabled="{Binding HasConfig}" />
+                    <Button Content="{x:Static res:Strings.ButtonRevert}"
+                            Command="{Binding RevertCommand}" />
                     <Button Content="{x:Static res:Strings.ButtonReset}"
                             Command="{Binding RequestResetCommand}" />
                 </StackPanel>
@@ -166,6 +168,47 @@
                                 Classes="accent" />
                     </StackPanel>
                 </StackPanel>
+            </Border>
+        </Border>
+
+        <!-- Revert to backup overlay -->
+        <Border IsVisible="{Binding ShowRevertDialog}"
+                Background="{DynamicResource DialogOverlayBrush}"
+                HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Border Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                    CornerRadius="12" Padding="32" MinWidth="600" MaxWidth="800" MaxHeight="500"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    BoxShadow="{DynamicResource DialogBoxShadow}">
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Top" Text="{x:Static res:Strings.RevertTitle}"
+                               FontSize="20" FontWeight="Bold" Margin="0,0,0,16" />
+                    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Spacing="12"
+                                HorizontalAlignment="Right" Margin="0,16,0,0">
+                        <Button Content="{x:Static res:Strings.ButtonCancel}"
+                                Command="{Binding CancelRevertCommand}" MinWidth="100" />
+                        <Button Content="{x:Static res:Strings.ButtonRevert}"
+                                Command="{Binding ConfirmRevertCommand}" MinWidth="100"
+                                IsEnabled="{Binding SelectedBackup, Converter={x:Static ObjectConverters.IsNotNull}}"
+                                Classes="accent" />
+                    </StackPanel>
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="16">
+                        <ListBox Grid.Column="0" ItemsSource="{Binding Backups}"
+                                 SelectedItem="{Binding SelectedBackup}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Spacing="2" Margin="4">
+                                        <TextBlock Text="{Binding FileName}" FontWeight="SemiBold" />
+                                        <TextBlock Text="{Binding Modified, StringFormat='{}{0:yyyy-MM-dd HH:mm:ss}'}"
+                                                   FontSize="12" Opacity="0.6" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <TextBox Grid.Column="1" Text="{Binding BackupPreview}" IsReadOnly="True"
+                                 AcceptsReturn="True" FontFamily="Consolas,Menlo,monospace" FontSize="12"
+                                 TextWrapping="NoWrap" />
+                    </Grid>
+                </DockPanel>
             </Border>
         </Border>
     </Grid>

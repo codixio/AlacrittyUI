@@ -166,6 +166,23 @@ public class ConfigReaderService
             palette.TransparentBackgroundColors = transBg is true;
     }
 
+    private static (string Program, List<string> Args) ReadCommand(object value)
+    {
+        if (value is string s)
+            return (s, []);
+
+        if (value is TomlTable table)
+        {
+            var program = GetString(table, "program", "");
+            var args = table.TryGetValue("args", out var argsObj) && argsObj is TomlArray argsArr
+                ? argsArr.OfType<string>().ToList()
+                : [];
+            return (program, args);
+        }
+
+        return ("", []);
+    }
+
     private static string GetString(TomlTable table, string key, string defaultValue)
         => table.TryGetValue(key, out var val) && val is string s ? s : defaultValue;
 
@@ -313,7 +330,7 @@ public class ConfigReaderService
             {
                 terminal.ShellProgram = GetString(shell, "program", terminal.ShellProgram);
                 if (shell.TryGetValue("args", out var argsObj) && argsObj is TomlArray args)
-                    terminal.ShellArgs = string.Join(" ", args.Select(a => a?.ToString() ?? string.Empty));
+                    terminal.ShellArgs = args.OfType<string>().ToList();
             }
         }
 
@@ -343,12 +360,7 @@ public class ConfigReaderService
             terminal.BellColor = GetString(bell, "color", terminal.BellColor);
 
             if (bell.TryGetValue("command", out var cmdObj))
-            {
-                if (cmdObj is string cmdStr)
-                    terminal.BellCommand = cmdStr;
-                else if (cmdObj is TomlTable cmdTable)
-                    terminal.BellCommand = GetString(cmdTable, "program", "");
-            }
+                (terminal.BellCommand, terminal.BellCommandArgs) = ReadCommand(cmdObj);
         }
     }
 
@@ -372,12 +384,7 @@ public class ConfigReaderService
                 };
 
                 if (ruleTable.TryGetValue("command", out var cmdVal))
-                {
-                    if (cmdVal is string cmdStr)
-                        rule.Command = cmdStr;
-                    else if (cmdVal is TomlTable cmdTable)
-                        rule.Command = GetString(cmdTable, "program", "");
-                }
+                    (rule.Command, rule.CommandArgs) = ReadCommand(cmdVal);
 
                 if (ruleTable.TryGetValue("binding", out var bindObj) && bindObj is TomlTable bindTable)
                 {
@@ -414,12 +421,7 @@ public class ConfigReaderService
                 };
 
                 if (b.TryGetValue("command", out var cmdVal))
-                {
-                    if (cmdVal is string cmdStr)
-                        binding.Command = cmdStr;
-                    else if (cmdVal is TomlTable cmdTable)
-                        binding.Command = GetString(cmdTable, "program", "");
-                }
+                    (binding.Command, binding.CommandArgs) = ReadCommand(cmdVal);
 
                 keyboard.Bindings.Add(binding);
             }

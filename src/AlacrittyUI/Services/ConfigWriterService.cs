@@ -293,7 +293,18 @@ public class ConfigWriterService
         {
             var shell = GetOrCreateTable(terminalTable, "shell");
             shell["program"] = terminal.ShellProgram;
-            shell["args"] = terminal.ShellArgs;
+
+            if (terminal.ShellArgs.Count > 0)
+            {
+                var argsArr = new TomlArray();
+                foreach (var arg in terminal.ShellArgs)
+                    argsArr.Add(arg);
+                shell["args"] = argsArr;
+            }
+            else
+            {
+                shell.Remove("args");
+            }
         }
 
         var selection = GetOrCreateTable(doc, "selection");
@@ -324,7 +335,7 @@ public class ConfigWriterService
         bell["color"] = terminal.BellColor;
 
         if (!string.IsNullOrEmpty(terminal.BellCommand))
-            bell["command"] = terminal.BellCommand;
+            bell["command"] = WriteCommand(terminal.BellCommand, terminal.BellCommandArgs);
     }
 
     private static void WriteHints(TomlTable doc, HintsConfig hints)
@@ -349,7 +360,7 @@ public class ConfigWriterService
                 if (!string.IsNullOrEmpty(rule.Action))
                     ruleTable["action"] = rule.Action;
                 if (!string.IsNullOrEmpty(rule.Command))
-                    ruleTable["command"] = rule.Command;
+                    ruleTable["command"] = WriteCommand(rule.Command, rule.CommandArgs);
                 if (!string.IsNullOrEmpty(rule.BindingKey))
                 {
                     var binding = new TomlTable();
@@ -385,7 +396,7 @@ public class ConfigWriterService
             if (!string.IsNullOrEmpty(b.Mods)) bt["mods"] = b.Mods;
             if (!string.IsNullOrEmpty(b.Mode)) bt["mode"] = b.Mode;
             if (!string.IsNullOrEmpty(b.Action)) bt["action"] = b.Action;
-            if (!string.IsNullOrEmpty(b.Command)) bt["command"] = b.Command;
+            if (!string.IsNullOrEmpty(b.Command)) bt["command"] = WriteCommand(b.Command, b.CommandArgs);
             if (!string.IsNullOrEmpty(b.Chars)) bt["chars"] = b.Chars;
             bindingsArr.Add(bt);
         }
@@ -402,6 +413,22 @@ public class ConfigWriterService
         debugTable["print_events"] = debug.PrintEvents;
         debugTable["highlight_damage"] = debug.HighlightDamage;
         debugTable["prefer_egl"] = debug.PreferEgl;
+    }
+
+    private static object WriteCommand(string program, List<string> args)
+    {
+        // simple string command when no args
+        if (args.Count == 0)
+            return program;
+
+        // table format: { program = "...", args = ["..."] }
+        var table = new TomlTable();
+        table["program"] = program;
+        var argsArr = new TomlArray();
+        foreach (var arg in args)
+            argsArr.Add(arg);
+        table["args"] = argsArr;
+        return table;
     }
 
     private static TomlTable GetOrCreateTable(TomlTable parent, string key)

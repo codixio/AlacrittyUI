@@ -36,7 +36,12 @@
             <ScrollViewer Grid.Column="1" IsVisible="{Binding SelectedRule, Converter={x:Static ObjectConverters.IsNotNull}}">
                 <StackPanel Spacing="8" DataContext="{Binding SelectedRule}" Margin="8,0,0,0">
                     <TextBlock Text="{x:Static res:Strings.LabelRegex}" FontWeight="SemiBold" />
-                    <TextBox Text="{Binding Regex}" FontFamily="Consolas,Menlo,monospace" />
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <TextBox Text="{Binding Regex}" FontFamily="Consolas,Menlo,monospace" />
+                        <TextBlock Text="!" Foreground="#dc3545" FontWeight="Bold" FontSize="14"
+                                   IsVisible="{Binding RegexHasError}"
+                                   ToolTip.Tip="Invalid regular expression" />
+                    </StackPanel>
 
                     <CheckBox Content="{x:Static res:Strings.LabelHyperlinks}" IsChecked="{Binding Hyperlinks}" />
                     <CheckBox Content="{x:Static res:Strings.LabelPostProcessing}" IsChecked="{Binding PostProcessing}" />

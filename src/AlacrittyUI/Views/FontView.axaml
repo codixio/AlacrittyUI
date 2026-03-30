@@ -36,22 +36,22 @@
                         <TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Static res:Strings.FontNormal}"
                                    VerticalAlignment="Center" FontWeight="SemiBold" />
                         <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding NormalFamily}" />
-                        <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding NormalStyle}" />
+                        <ComboBox Grid.Row="1" Grid.Column="2" ItemsSource="{Binding StyleOptions}" SelectedItem="{Binding NormalStyle}" IsEditable="True" MinWidth="160" />
                         <!-- Bold -->
                         <TextBlock Grid.Row="2" Grid.Column="0" Text="{x:Static res:Strings.FontBold}"
                                    VerticalAlignment="Center" />
                         <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding BoldFamily}" Watermark="{x:Static res:Strings.WatermarkFallbackNormal}" />
-                        <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding BoldStyle}" />
+                        <ComboBox Grid.Row="2" Grid.Column="2" ItemsSource="{Binding StyleOptions}" SelectedItem="{Binding BoldStyle}" IsEditable="True" MinWidth="160" />
                         <!-- Italic -->
                         <TextBlock Grid.Row="3" Grid.Column="0" Text="{x:Static res:Strings.FontItalic}"
                                    VerticalAlignment="Center" />
                         <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding ItalicFamily}" Watermark="{x:Static res:Strings.WatermarkFallbackNormal}" />
-                        <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding ItalicStyle}" />
+                        <ComboBox Grid.Row="3" Grid.Column="2" ItemsSource="{Binding StyleOptions}" SelectedItem="{Binding ItalicStyle}" IsEditable="True" MinWidth="160" />
                         <!-- Bold Italic -->
                         <TextBlock Grid.Row="4" Grid.Column="0" Text="{x:Static res:Strings.FontBoldItalic}"
                                    VerticalAlignment="Center" />
                         <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding BoldItalicFamily}" Watermark="{x:Static res:Strings.WatermarkFallbackNormal}" />
-                        <TextBox Grid.Row="4" Grid.Column="2" Text="{Binding BoldItalicStyle}" />
+                        <ComboBox Grid.Row="4" Grid.Column="2" ItemsSource="{Binding StyleOptions}" SelectedItem="{Binding BoldItalicStyle}" IsEditable="True" MinWidth="160" />
                     </Grid>
                 </StackPanel>
             </StackPanel>

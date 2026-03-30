@@ -8,17 +8,37 @@ namespace AlacrittyUI.ViewModels;
 public partial class HintRuleViewModel : ObservableObject
 {
     [ObservableProperty] private string _regex = string.Empty;
+    [ObservableProperty] private bool _regexHasError;
     [ObservableProperty] private bool _hyperlinks;
     [ObservableProperty] private bool _postProcessing;
     [ObservableProperty] private bool _persist;
     [ObservableProperty] private string _action = string.Empty;
     [ObservableProperty] private string _command = string.Empty;
+    internal List<string> CommandArgs { get; set; } = [];
     [ObservableProperty] private string _bindingKey = string.Empty;
     [ObservableProperty] private string _bindingMods = string.Empty;
     [ObservableProperty] private bool _mouseEnabled = true;
     [ObservableProperty] private string _mouseMods = string.Empty;
 
     public string[] ActionOptions => HintRule.ActionOptions;
+
+    partial void OnRegexChanged(string value)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            RegexHasError = false;
+            return;
+        }
+        try
+        {
+            _ = new System.Text.RegularExpressions.Regex(value);
+            RegexHasError = false;
+        }
+        catch
+        {
+            RegexHasError = true;
+        }
+    }
 }
 
 public partial class HintsViewModel : ObservableObject
@@ -42,6 +62,7 @@ public partial class HintsViewModel : ObservableObject
                 Persist = rule.Persist,
                 Action = rule.Action,
                 Command = rule.Command,
+                CommandArgs = rule.CommandArgs,
                 BindingKey = rule.BindingKey,
                 BindingMods = rule.BindingMods,
                 MouseEnabled = rule.MouseEnabled,
@@ -64,6 +85,7 @@ public partial class HintsViewModel : ObservableObject
                 Persist = vm.Persist,
                 Action = vm.Action,
                 Command = vm.Command,
+                CommandArgs = vm.CommandArgs,
                 BindingKey = vm.BindingKey,
                 BindingMods = vm.BindingMods,
                 MouseEnabled = vm.MouseEnabled,

@@ -32,4 +32,6 @@ public class FontConfig
     public int GlyphOffsetY { get; set; }
 
     public bool BuiltinBoxDrawing { get; set; } = true;
+
+    public static readonly string[] StyleOptions = ["Regular", "Bold", "Italic", "Bold Italic", "Thin", "Light", "Medium", "SemiBold", "ExtraBold", "Black"];
 }

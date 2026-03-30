@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
@@ -19,6 +20,7 @@ public partial class MainWindowViewModel : ObservableObject
     private readonly ConfigReaderService _reader;
     private readonly ConfigWriterService _writer;
     private readonly AppSettingsService _appSettings;
+    private readonly BackupService _backupService;
 
     public string WindowTitle { get; } = $"AlacrittyUI v{GetVersion()}";
 
@@ -64,6 +66,18 @@ public partial class MainWindowViewModel : ObservableObject
     [ObservableProperty]
     private bool _showUnsavedDialog;
 
+    [ObservableProperty]
+    private bool _showRevertDialog;
+
+    [ObservableProperty]
+    private BackupInfo? _selectedBackup;
+
+    [ObservableProperty]
+    private string _backupPreview = string.Empty;
+
+    [ObservableProperty]
+    private ObservableCollection<BackupInfo> _backups = [];
+
     public ColorEditorViewModel ColorEditor { get; }
     public FontViewModel Font { get; }
     public WindowViewModel Window { get; }
@@ -78,18 +92,21 @@ public partial class MainWindowViewModel : ObservableObject
     private AlacrittyConfig? _config;
     private bool _suppressDirtyTracking;
     private Action? _pendingAction;
+    private readonly List<(System.Collections.Specialized.INotifyCollectionChanged Collection, System.Collections.Specialized.NotifyCollectionChangedEventHandler Handler)> _collectionSubscriptions = [];
 
     public MainWindowViewModel(
         ConfigDiscoveryService discovery,
         ConfigReaderService reader,
         ConfigWriterService writer,
         ThemeService themeService,
-        AppSettingsService appSettings)
+        AppSettingsService appSettings,
+        BackupService backupService)
     {
         _discovery = discovery;
         _reader = reader;
         _writer = writer;
         _appSettings = appSettings;
+        _backupService = backupService;
 
         ColorEditor = new ColorEditorViewModel();
         Font = new FontViewModel();
@@ -119,14 +136,14 @@ public partial class MainWindowViewModel : ObservableObject
 
     private void SubscribeToColorCollections()
     {
-        // unsubscribe existing color entry handlers to prevent leaks on reload
-        UnsubscribeFromColorEntries();
+        // unsubscribe existing handlers to prevent leaks on reload
+        UnsubscribeFromColorCollections();
 
         var collections = GetColorCollections();
 
         foreach (var collection in collections)
         {
-            collection.CollectionChanged += (_, args) =>
+            System.Collections.Specialized.NotifyCollectionChangedEventHandler handler = (_, args) =>
             {
                 if (args.NewItems != null)
                 {
@@ -134,20 +151,23 @@ public partial class MainWindowViewModel : ObservableObject
                         entry.PropertyChanged += OnChildPropertyChanged;
                 }
             };
+            collection.CollectionChanged += handler;
+            _collectionSubscriptions.Add((collection, handler));
 
-            // subscribe to existing items
             foreach (var entry in collection)
                 entry.PropertyChanged += OnChildPropertyChanged;
         }
     }
 
-    private void UnsubscribeFromColorEntries()
+    private void UnsubscribeFromColorCollections()
     {
+        foreach (var (collection, handler) in _collectionSubscriptions)
+            collection.CollectionChanged -= handler;
+        _collectionSubscriptions.Clear();
+
         foreach (var collection in GetColorCollections())
-        {
             foreach (var entry in collection)
                 entry.PropertyChanged -= OnChildPropertyChanged;
-        }
     }
 
     private System.Collections.ObjectModel.ObservableCollection<ColorEntry>[] GetColorCollections() =>
@@ -253,6 +273,12 @@ public partial class MainWindowViewModel : ObservableObject
     {
         if (_config == null || string.IsNullOrEmpty(ConfigPath)) return;
 
+        if (HasValidationErrors())
+        {
+            StatusText = Strings.StatusValidationError;
+            return;
+        }
+
         try
         {
             ColorEditor.ApplyToPalette(_config.Colors);
@@ -348,6 +374,49 @@ public partial class MainWindowViewModel : ObservableObject
         ShowResetDialog = false;
     }
 
+    partial void OnSelectedBackupChanged(BackupInfo? value)
+    {
+        if (value != null)
+            BackupPreview = _backupService.ReadBackupContent(value.FilePath);
+        else
+            BackupPreview = string.Empty;
+    }
+
+    [RelayCommand]
+    private void Revert()
+    {
+        if (string.IsNullOrEmpty(ConfigPath)) return;
+        Backups = new ObservableCollection<BackupInfo>(_backupService.GetBackups(ConfigPath));
+        SelectedBackup = null;
+        BackupPreview = string.Empty;
+        ShowRevertDialog = true;
+    }
+
+    [RelayCommand]
+    private void ConfirmRevert()
+    {
+        if (SelectedBackup == null || string.IsNullOrEmpty(ConfigPath)) return;
+
+        try
+        {
+            _backupService.RestoreBackup(SelectedBackup.FilePath, ConfigPath);
+            ShowRevertDialog = false;
+            LoadConfigFromPath(ConfigPath);
+            StatusText = Strings.StatusReverted;
+        }
+        catch (Exception ex)
+        {
+            Logger.Error(ex, "Failed to restore backup");
+            StatusText = Strings.StatusRevertError;
+        }
+    }
+
+    [RelayCommand]
+    private void CancelRevert()
+    {
+        ShowRevertDialog = false;
+    }
+
     [RelayCommand]
     private void OpenConfigInEditor()
     {
@@ -379,6 +448,20 @@ public partial class MainWindowViewModel : ObservableObject
         _pendingAction = () => { /* window will handle close after dialog */ };
         ShowUnsavedDialog = true;
         return true;
+    }
+
+    private bool HasValidationErrors()
+    {
+        foreach (var collection in GetColorCollections())
+            foreach (var entry in collection)
+                if (entry.HasError)
+                    return true;
+
+        foreach (var rule in Hints.Rules)
+            if (rule.RegexHasError)
+                return true;
+
+        return false;
     }
 
     private static string GetVersion()

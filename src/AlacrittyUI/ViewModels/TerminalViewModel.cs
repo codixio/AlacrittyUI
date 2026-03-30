@@ -1,7 +1,14 @@
+using System.Collections.ObjectModel;
 using AlacrittyUI.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace AlacrittyUI.ViewModels;
+
+public partial class ShellArgViewModel : ObservableObject
+{
+    [ObservableProperty] private string _value = string.Empty;
+}
 
 public partial class TerminalViewModel : ObservableObject
 {
@@ -11,7 +18,8 @@ public partial class TerminalViewModel : ObservableObject
 
     // Shell
     [ObservableProperty] private string _shellProgram = string.Empty;
-    [ObservableProperty] private string _shellArgs = string.Empty;
+    public ObservableCollection<ShellArgViewModel> ShellArgs { get; } = [];
+    [ObservableProperty] private ShellArgViewModel? _selectedShellArg;
 
     // Selection
     [ObservableProperty] private bool _saveToClipboard;
@@ -30,6 +38,7 @@ public partial class TerminalViewModel : ObservableObject
     [ObservableProperty] private int _bellDuration;
     [ObservableProperty] private string _bellColor = "#ffffff";
     [ObservableProperty] private string _bellCommand = string.Empty;
+    private List<string> _bellCommandArgs = [];
 
     // General (extra)
     [ObservableProperty] private string _workingDirectory = string.Empty;
@@ -41,12 +50,30 @@ public partial class TerminalViewModel : ObservableObject
     public string[] Osc52Options => TerminalConfig.Osc52Options;
     public string[] BellAnimationOptions => TerminalConfig.BellAnimationOptions;
 
+    [RelayCommand]
+    private void AddShellArg()
+    {
+        var arg = new ShellArgViewModel();
+        ShellArgs.Add(arg);
+        SelectedShellArg = arg;
+    }
+
+    [RelayCommand]
+    private void RemoveShellArg()
+    {
+        if (SelectedShellArg == null) return;
+        ShellArgs.Remove(SelectedShellArg);
+        SelectedShellArg = null;
+    }
+
     public void LoadFrom(TerminalConfig t)
     {
         ScrollingHistory = t.ScrollingHistory;
         ScrollingMultiplier = t.ScrollingMultiplier;
         ShellProgram = t.ShellProgram;
-        ShellArgs = t.ShellArgs;
+        ShellArgs.Clear();
+        foreach (var arg in t.ShellArgs)
+            ShellArgs.Add(new ShellArgViewModel { Value = arg });
         SaveToClipboard = t.SaveToClipboard;
         SemanticEscapeChars = t.SemanticEscapeChars;
         HideMouseWhenTyping = t.HideMouseWhenTyping;
@@ -57,6 +84,7 @@ public partial class TerminalViewModel : ObservableObject
         BellDuration = t.BellDuration;
         BellColor = t.BellColor;
         BellCommand = t.BellCommand;
+        _bellCommandArgs = t.BellCommandArgs;
         WorkingDirectory = t.WorkingDirectory;
         ImportPaths = string.Join("\n", t.Import);
     }
@@ -66,7 +94,7 @@ public partial class TerminalViewModel : ObservableObject
         t.ScrollingHistory = ScrollingHistory;
         t.ScrollingMultiplier = ScrollingMultiplier;
         t.ShellProgram = ShellProgram;
-        t.ShellArgs = ShellArgs;
+        t.ShellArgs = ShellArgs.Where(a => !string.IsNullOrWhiteSpace(a.Value)).Select(a => a.Value).ToList();
         t.SaveToClipboard = SaveToClipboard;
         t.SemanticEscapeChars = SemanticEscapeChars;
         t.HideMouseWhenTyping = HideMouseWhenTyping;
@@ -77,6 +105,7 @@ public partial class TerminalViewModel : ObservableObject
         t.BellDuration = BellDuration;
         t.BellColor = BellColor;
         t.BellCommand = BellCommand;
+        t.BellCommandArgs = _bellCommandArgs;
         t.WorkingDirectory = WorkingDirectory;
         t.Import = ImportPaths.Split('\n', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
     }

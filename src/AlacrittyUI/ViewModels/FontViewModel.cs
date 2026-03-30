@@ -20,6 +20,8 @@ public partial class FontViewModel : ObservableObject
     [ObservableProperty] private int _glyphOffsetY;
     [ObservableProperty] private bool _builtinBoxDrawing = true;
 
+    public string[] StyleOptions => FontConfig.StyleOptions;
+
     public void LoadFrom(FontConfig f)
     {
         Size = f.Size;

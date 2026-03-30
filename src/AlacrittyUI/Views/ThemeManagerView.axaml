@@ -48,22 +48,25 @@
                              MaxHeight="250">
                         <ListBox.ItemTemplate>
                             <DataTemplate x:DataType="models:ThemeInfo">
-                                <StackPanel Orientation="Horizontal" Spacing="10" Margin="4">
-                                    <Border Width="24" Height="24" CornerRadius="4"
+                                <Grid ColumnDefinitions="40,*,Auto" Margin="4" ColumnSpacing="10">
+                                    <!-- Color preview circle -->
+                                    <Border Width="32" Height="32" CornerRadius="16"
                                             BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
-                                            BorderThickness="1">
-                                        <Border.Background>
-                                            <SolidColorBrush Color="{Binding PreviewBackground, FallbackValue=#181818}" />
-                                        </Border.Background>
-                                        <TextBlock Text="A" FontSize="12" FontWeight="Bold"
-                                                   HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <TextBlock.Foreground>
-                                                <SolidColorBrush Color="{Binding PreviewForeground, FallbackValue=#d8d8d8}" />
-                                            </TextBlock.Foreground>
-                                        </TextBlock>
+                                            BorderThickness="2"
+                                            Background="{Binding BackgroundBrush}">
+                                        <TextBlock Text="Aa" FontSize="11" FontWeight="Bold"
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                   Foreground="{Binding ForegroundBrush}" />
                                     </Border>
-                                    <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
-                                </StackPanel>
+                                    <!-- Theme name -->
+                                    <TextBlock Grid.Column="1" Text="{Binding Name}"
+                                               VerticalAlignment="Center" FontSize="14" />
+                                    <!-- Active indicator -->
+                                    <TextBlock Grid.Column="2" Text="✓" FontSize="18" FontWeight="Bold"
+                                               VerticalAlignment="Center"
+                                               Foreground="{DynamicResource SystemAccentColor}"
+                                               IsVisible="{Binding IsActive}" />
+                                </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
@@ -78,22 +81,25 @@
                              MinHeight="60" MaxHeight="200">
                         <ListBox.ItemTemplate>
                             <DataTemplate x:DataType="models:ThemeInfo">
-                                <StackPanel Orientation="Horizontal" Spacing="10" Margin="4">
-                                    <Border Width="24" Height="24" CornerRadius="4"
+                                <Grid ColumnDefinitions="40,*,Auto" Margin="4" ColumnSpacing="10">
+                                    <!-- Color preview circle -->
+                                    <Border Width="32" Height="32" CornerRadius="16"
                                             BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
-                                            BorderThickness="1">
-                                        <Border.Background>
-                                            <SolidColorBrush Color="{Binding PreviewBackground, FallbackValue=#181818}" />
-                                        </Border.Background>
-                                        <TextBlock Text="A" FontSize="12" FontWeight="Bold"
-                                                   HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <TextBlock.Foreground>
-                                                <SolidColorBrush Color="{Binding PreviewForeground, FallbackValue=#d8d8d8}" />
-                                            </TextBlock.Foreground>
-                                        </TextBlock>
+                                            BorderThickness="2"
+                                            Background="{Binding BackgroundBrush}">
+                                        <TextBlock Text="Aa" FontSize="11" FontWeight="Bold"
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                   Foreground="{Binding ForegroundBrush}" />
                                     </Border>
-                                    <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
-                                </StackPanel>
+                                    <!-- Theme name -->
+                                    <TextBlock Grid.Column="1" Text="{Binding Name}"
+                                               VerticalAlignment="Center" FontSize="14" />
+                                    <!-- Active indicator -->
+                                    <TextBlock Grid.Column="2" Text="✓" FontSize="18" FontWeight="Bold"
+                                               VerticalAlignment="Center"
+                                               Foreground="{DynamicResource SystemAccentColor}"
+                                               IsVisible="{Binding IsActive}" />
+                                </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>

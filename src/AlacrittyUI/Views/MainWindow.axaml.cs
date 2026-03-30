@@ -114,23 +114,23 @@ public partial class MainWindow : Window
     {
         try
         {
-        var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
-        {
-            Title = Strings.DialogOpenConfig,
-            AllowMultiple = false,
-            FileTypeFilter =
-            [
-                new FilePickerFileType("TOML") { Patterns = ["*.toml"] },
-                new FilePickerFileType("All Files") { Patterns = ["*"] }
-            ]
-        });
+            var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+            {
+                Title = Strings.DialogOpenConfig,
+                AllowMultiple = false,
+                FileTypeFilter =
+                [
+                    new FilePickerFileType("TOML") { Patterns = ["*.toml"] },
+                    new FilePickerFileType("All Files") { Patterns = ["*"] }
+                ]
+            });
 
-        if (files.Count > 0 && DataContext is MainWindowViewModel vm)
-        {
-            var path = files[0].TryGetLocalPath();
-            if (path != null)
-                vm.LoadConfigFromPath(path);
-        }
+            if (files.Count > 0 && DataContext is MainWindowViewModel vm)
+            {
+                var path = files[0].TryGetLocalPath();
+                if (path != null)
+                    vm.LoadConfigFromPath(path);
+            }
         }
         catch (Exception ex)
         {

@@ -1,3 +1,4 @@
+using AlacrittyUI.Helpers;
 using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 
@@ -13,6 +14,9 @@ public partial class ColorEntry : ObservableObject
 
     [ObservableProperty]
     private ISolidColorBrush _preview = new SolidColorBrush(Colors.Black);
+
+    [ObservableProperty]
+    private bool _hasError;
 
     public string Key { get; init; } = string.Empty;
 
@@ -30,6 +34,7 @@ public partial class ColorEntry : ObservableObject
 
     partial void OnHexValueChanged(string value)
     {
+        HasError = !ValidationHelper.IsValidHexColor(value);
         UpdatePreview();
     }
 

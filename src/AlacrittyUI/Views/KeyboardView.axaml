@@ -33,13 +33,18 @@
                           IsVisible="{Binding SelectedBinding, Converter={x:Static ObjectConverters.IsNotNull}}">
                 <StackPanel Spacing="8" DataContext="{Binding SelectedBinding}" Margin="8,0,0,0">
                     <TextBlock Text="{x:Static res:Strings.LabelKey}" FontWeight="SemiBold" />
-                    <TextBox Text="{Binding Key}" Width="200" />
+                    <ComboBox ItemsSource="{Binding KeyOptions}" SelectedItem="{Binding Key}" IsEditable="True" Width="200" />
 
                     <TextBlock Text="{x:Static res:Strings.LabelMods}" FontWeight="SemiBold" />
-                    <TextBox Text="{Binding Mods}" Width="200" Watermark="{x:Static res:Strings.LabelMods}" />
+                    <WrapPanel Orientation="Horizontal">
+                        <CheckBox Content="Ctrl" IsChecked="{Binding ModControl}" Margin="0,0,8,0" />
+                        <CheckBox Content="Shift" IsChecked="{Binding ModShift}" Margin="0,0,8,0" />
+                        <CheckBox Content="Alt" IsChecked="{Binding ModAlt}" Margin="0,0,8,0" />
+                        <CheckBox Content="Super" IsChecked="{Binding ModSuper}" />
+                    </WrapPanel>
 
                     <TextBlock Text="{x:Static res:Strings.LabelMode}" FontWeight="SemiBold" />
-                    <TextBox Text="{Binding Mode}" Width="200" Watermark="{x:Static res:Strings.LabelMode}" />
+                    <ComboBox ItemsSource="{Binding ModeOptions}" SelectedItem="{Binding Mode}" IsEditable="True" Width="200" />
 
                     <TextBlock Text="{x:Static res:Strings.LabelAction}" FontWeight="SemiBold" />
                     <ComboBox ItemsSource="{Binding ActionOptions}" SelectedItem="{Binding Action}"

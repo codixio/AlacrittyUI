@@ -13,13 +13,31 @@
         <TabItem Header="{x:Static res:Strings.TermGeneral}">
             <StackPanel Spacing="16" Margin="16">
                 <!-- Shell -->
-                <Grid ColumnDefinitions="120,*" RowDefinitions="Auto,Auto" RowSpacing="8">
+                <Grid ColumnDefinitions="120,*,Auto" RowDefinitions="Auto,Auto" RowSpacing="8">
                     <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Static res:Strings.TermProgram}" VerticalAlignment="Center" />
                     <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding ShellProgram}"
                              Watermark="{Binding ShellProgramPlaceholder}" FontFamily="Consolas,Menlo,monospace" />
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Static res:Strings.TermArgs}" VerticalAlignment="Center" />
-                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ShellArgs}"
-                             Watermark="--login" FontFamily="Consolas,Menlo,monospace" />
+                    <Button Grid.Row="0" Grid.Column="2" Content="..." Margin="4,0,0,0"
+                            Click="OnBrowseShellClick" ToolTip.Tip="Browse..." MinWidth="36" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Static res:Strings.TermArgs}" VerticalAlignment="Top" Margin="0,6,0,0" />
+                    <StackPanel Grid.Row="1" Grid.Column="1" Spacing="4">
+                        <ItemsControl ItemsSource="{Binding ShellArgs}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="vm:ShellArgViewModel">
+                                    <TextBox Text="{Binding Value}" Margin="0,0,0,2"
+                                             FontFamily="Consolas,Menlo,monospace" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <Button Content="+" Command="{Binding AddShellArgCommand}"
+                                    MinWidth="32" FontWeight="Bold"
+                                    ToolTip.Tip="{x:Static res:Strings.ButtonAdd}" />
+                            <Button Content="−" Command="{Binding RemoveShellArgCommand}"
+                                    MinWidth="32" FontWeight="Bold"
+                                    ToolTip.Tip="{x:Static res:Strings.ButtonRemove}" />
+                        </StackPanel>
+                    </StackPanel>
                 </Grid>
                 <TextBlock Text="{x:Static res:Strings.TermShellHint}" FontSize="12" Opacity="0.5" Margin="0,-8,0,0" />
 
@@ -56,7 +74,7 @@
             <StackPanel Spacing="16" Margin="16">
                 <!-- Bell -->
                 <TextBlock Text="{x:Static res:Strings.TermBell}" FontSize="18" FontWeight="Bold" />
-                <Grid ColumnDefinitions="150,*" RowDefinitions="Auto,Auto,Auto" RowSpacing="8">
+                <Grid ColumnDefinitions="150,*,Auto" RowDefinitions="Auto,Auto,Auto" RowSpacing="8">
                     <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Static res:Strings.TermBellAnimation}" VerticalAlignment="Center" />
                     <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding BellAnimationOptions}"
                               SelectedItem="{Binding BellAnimation}" MinWidth="180" />
@@ -65,12 +83,16 @@
                                    Minimum="0" Maximum="5000" Increment="50" MinWidth="140" />
                     <TextBlock Grid.Row="2" Grid.Column="0" Text="{x:Static res:Strings.LabelCommand}" VerticalAlignment="Center" />
                     <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding BellCommand}" FontFamily="Consolas,Menlo,monospace" />
+                    <Button Grid.Row="2" Grid.Column="2" Content="..." Margin="4,0,0,0"
+                            Click="OnBrowseBellCommandClick" ToolTip.Tip="Browse..." MinWidth="36" />
                 </Grid>
 
                 <!-- Working directory -->
-                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12" Margin="0,8,0,0">
+                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12" Margin="0,8,0,0">
                     <TextBlock Text="{x:Static res:Strings.TermWorkingDir}" VerticalAlignment="Center" FontWeight="SemiBold" />
                     <TextBox Grid.Column="1" Text="{Binding WorkingDirectory}" FontFamily="Consolas,Menlo,monospace" />
+                    <Button Grid.Column="2" Content="..." Margin="4,0,0,0"
+                            Click="OnBrowseWorkingDirClick" ToolTip.Tip="Browse..." MinWidth="36" />
                 </Grid>
 
                 <!-- Import paths -->

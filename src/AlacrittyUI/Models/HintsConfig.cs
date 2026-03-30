@@ -8,6 +8,7 @@ public class HintRule
     public bool Persist { get; set; }
     public string Action { get; set; } = string.Empty;
     public string Command { get; set; } = string.Empty;
+    public List<string> CommandArgs { get; set; } = [];
     public string BindingKey { get; set; } = string.Empty;
     public string BindingMods { get; set; } = string.Empty;
     public bool MouseEnabled { get; set; } = true;

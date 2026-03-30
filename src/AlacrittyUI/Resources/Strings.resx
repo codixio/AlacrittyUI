@@ -121,6 +121,7 @@
   <data name="TermHistory" xml:space="preserve"><value>Verlauf (Zeilen)</value></data>
   <data name="TermMultiplier" xml:space="preserve"><value>Multiplikator</value></data>
   <data name="TermShellHint" xml:space="preserve"><value>Leer lassen für System-Standard</value></data>
+  <data name="TermArgsHint" xml:space="preserve"><value>Ein Argument pro Zeile</value></data>
   <data name="TermProgram" xml:space="preserve"><value>Programm</value></data>
   <data name="TermArgs" xml:space="preserve"><value>Argumente</value></data>
   <data name="TermSelection" xml:space="preserve"><value>Auswahl</value></data>
@@ -170,6 +171,7 @@
   <data name="DebugLogLevel" xml:space="preserve"><value>Log-Level</value></data>
   <data name="DebugRenderer" xml:space="preserve"><value>Renderer</value></data>
   <!-- Status errors -->
+  <data name="StatusValidationError" xml:space="preserve"><value>Ungültige Eingaben vorhanden — Fehler korrigieren vor dem Speichern</value></data>
   <data name="StatusLoadError" xml:space="preserve"><value>Fehler beim Laden der Konfiguration</value></data>
   <data name="StatusSaveError" xml:space="preserve"><value>Fehler beim Speichern der Konfiguration</value></data>
   <data name="StatusThemeError" xml:space="preserve"><value>Fehler bei der Theme-Operation</value></data>
@@ -206,6 +208,11 @@
   <data name="UnsavedTitle" xml:space="preserve"><value>Ungespeicherte Änderungen</value></data>
   <data name="UnsavedMessage" xml:space="preserve"><value>Es gibt ungespeicherte Änderungen. Möchten Sie diese zuerst speichern?</value></data>
   <data name="ButtonDiscard" xml:space="preserve"><value>Verwerfen</value></data>
+  <!-- Revert -->
+  <data name="ButtonRevert" xml:space="preserve"><value>Wiederherstellen</value></data>
+  <data name="RevertTitle" xml:space="preserve"><value>Backup wiederherstellen</value></data>
+  <data name="StatusReverted" xml:space="preserve"><value>Backup wiederhergestellt</value></data>
+  <data name="StatusRevertError" xml:space="preserve"><value>Fehler beim Wiederherstellen des Backups</value></data>
   <!-- Reset -->
   <data name="ButtonReset" xml:space="preserve"><value>Zurücksetzen</value></data>
   <data name="ResetTitle" xml:space="preserve"><value>Auf Standardwerte zurücksetzen</value></data>

@@ -39,6 +39,7 @@ public partial class App : Application
             services.AddSingleton<ConfigReaderService>();
             services.AddSingleton<ConfigWriterService>();
             services.AddSingleton<ThemeService>();
+            services.AddSingleton<BackupService>();
             services.AddSingleton<MainWindowViewModel>();
 
             Services = services.BuildServiceProvider();

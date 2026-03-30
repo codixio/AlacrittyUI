@@ -24,6 +24,16 @@ public partial class ThemeManagerViewModel : ObservableObject
     [ObservableProperty]
     private string _newThemeName = string.Empty;
 
+    [ObservableProperty]
+    private string? _activeThemeName;
+
+    private void SetActiveTheme(string themeName)
+    {
+        ActiveThemeName = themeName;
+        foreach (var t in BuiltInThemes) t.IsActive = t.Name == themeName;
+        foreach (var t in UserThemes) t.IsActive = t.Name == themeName;
+    }
+
     public ThemeManagerViewModel(ThemeService themeService, MainWindowViewModel mainVm)
     {
         _themeService = themeService;
@@ -51,6 +61,7 @@ public partial class ThemeManagerViewModel : ObservableObject
         {
             var palette = _themeService.LoadPalette(SelectedTheme);
             _mainVm.ApplyPalette(palette);
+            SetActiveTheme(SelectedTheme.Name);
             _mainVm.StatusText = Strings.StatusThemeApplied;
             Logger.Information("Applied theme {Name}", SelectedTheme.Name);
         }

@@ -116,6 +116,7 @@ public static class Strings
     public static string TermHistory => Get(nameof(TermHistory));
     public static string TermMultiplier => Get(nameof(TermMultiplier));
     public static string TermShellHint => Get(nameof(TermShellHint));
+    public static string TermArgsHint => Get(nameof(TermArgsHint));
     public static string TermProgram => Get(nameof(TermProgram));
     public static string TermArgs => Get(nameof(TermArgs));
     public static string TermSelection => Get(nameof(TermSelection));
@@ -162,6 +163,7 @@ public static class Strings
     public static string DebugPreferEgl => Get(nameof(DebugPreferEgl));
 
     // Status errors
+    public static string StatusValidationError => Get(nameof(StatusValidationError));
     public static string StatusLoadError => Get(nameof(StatusLoadError));
     public static string StatusSaveError => Get(nameof(StatusSaveError));
     public static string StatusThemeError => Get(nameof(StatusThemeError));
@@ -201,6 +203,12 @@ public static class Strings
     public static string UnsavedTitle => Get(nameof(UnsavedTitle));
     public static string UnsavedMessage => Get(nameof(UnsavedMessage));
     public static string ButtonDiscard => Get(nameof(ButtonDiscard));
+
+    // Revert
+    public static string ButtonRevert => Get(nameof(ButtonRevert));
+    public static string RevertTitle => Get(nameof(RevertTitle));
+    public static string StatusReverted => Get(nameof(StatusReverted));
+    public static string StatusRevertError => Get(nameof(StatusRevertError));
 
     // Reset
     public static string ButtonReset => Get(nameof(ButtonReset));

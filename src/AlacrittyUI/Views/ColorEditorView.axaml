@@ -20,9 +20,14 @@
                             BorderThickness="1" />
                     <StackPanel VerticalAlignment="Center" Spacing="4">
                         <TextBlock Text="{Binding Label}" FontSize="15" FontWeight="SemiBold" />
-                        <TextBox Text="{Binding HexValue}" Width="120" FontSize="14"
-                                 FontFamily="Consolas,Menlo,monospace"
-                                 Padding="6,4" MinHeight="0" />
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <TextBox Text="{Binding HexValue}" Width="120" FontSize="14"
+                                     FontFamily="Consolas,Menlo,monospace"
+                                     Padding="6,4" MinHeight="0" />
+                            <TextBlock Text="!" Foreground="#dc3545" FontWeight="Bold" FontSize="16"
+                                       IsVisible="{Binding HasError}" VerticalAlignment="Center"
+                                       ToolTip.Tip="Invalid hex color (#RRGGBB)" />
+                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </Border>

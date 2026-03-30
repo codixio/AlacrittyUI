@@ -121,6 +121,7 @@
   <data name="TermHistory" xml:space="preserve"><value>History (lines)</value></data>
   <data name="TermMultiplier" xml:space="preserve"><value>Multiplier</value></data>
   <data name="TermShellHint" xml:space="preserve"><value>Leave empty for system default</value></data>
+  <data name="TermArgsHint" xml:space="preserve"><value>One argument per line</value></data>
   <data name="TermProgram" xml:space="preserve"><value>Program</value></data>
   <data name="TermArgs" xml:space="preserve"><value>Arguments</value></data>
   <data name="TermSelection" xml:space="preserve"><value>Selection</value></data>
@@ -170,6 +171,7 @@
   <data name="DebugLogLevel" xml:space="preserve"><value>Log Level</value></data>
   <data name="DebugRenderer" xml:space="preserve"><value>Renderer</value></data>
   <!-- Status errors -->
+  <data name="StatusValidationError" xml:space="preserve"><value>Invalid input detected — fix highlighted errors before saving</value></data>
   <data name="StatusLoadError" xml:space="preserve"><value>Failed to load configuration</value></data>
   <data name="StatusSaveError" xml:space="preserve"><value>Failed to save configuration</value></data>
   <data name="StatusThemeError" xml:space="preserve"><value>Theme operation failed</value></data>
@@ -206,6 +208,11 @@
   <data name="UnsavedTitle" xml:space="preserve"><value>Unsaved Changes</value></data>
   <data name="UnsavedMessage" xml:space="preserve"><value>You have unsaved changes. Would you like to save them first?</value></data>
   <data name="ButtonDiscard" xml:space="preserve"><value>Discard</value></data>
+  <!-- Revert -->
+  <data name="ButtonRevert" xml:space="preserve"><value>Revert</value></data>
+  <data name="RevertTitle" xml:space="preserve"><value>Restore Backup</value></data>
+  <data name="StatusReverted" xml:space="preserve"><value>Backup restored</value></data>
+  <data name="StatusRevertError" xml:space="preserve"><value>Failed to restore backup</value></data>
   <!-- Reset -->
   <data name="ButtonReset" xml:space="preserve"><value>Reset</value></data>
   <data name="ResetTitle" xml:space="preserve"><value>Reset to defaults</value></data>
