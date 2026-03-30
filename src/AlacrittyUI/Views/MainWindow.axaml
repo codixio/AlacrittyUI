@@ -121,12 +121,12 @@
     <!-- Dialog overlays — full window, centered -->
     <!-- Reset confirmation -->
         <Border IsVisible="{Binding ShowResetDialog}"
-                Background="#80000000"
+                Background="{DynamicResource DialogOverlayBrush}"
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Border Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
                     CornerRadius="12" Padding="32" MinWidth="400"
                     HorizontalAlignment="Center" VerticalAlignment="Center"
-                    BoxShadow="0 4 24 0 #40000000">
+                    BoxShadow="{DynamicResource DialogBoxShadow}">
                 <StackPanel Spacing="20">
                     <TextBlock Text="{x:Static res:Strings.ResetTitle}"
                                FontSize="20" FontWeight="Bold" />
@@ -145,12 +145,12 @@
 
         <!-- Unsaved changes overlay -->
         <Border IsVisible="{Binding ShowUnsavedDialog}"
-                Background="#80000000"
+                Background="{DynamicResource DialogOverlayBrush}"
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Border Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
                     CornerRadius="12" Padding="32" MinWidth="420"
                     HorizontalAlignment="Center" VerticalAlignment="Center"
-                    BoxShadow="0 4 24 0 #40000000">
+                    BoxShadow="{DynamicResource DialogBoxShadow}">
                 <StackPanel Spacing="20">
                     <TextBlock Text="{x:Static res:Strings.UnsavedTitle}"
                                FontSize="20" FontWeight="Bold" />

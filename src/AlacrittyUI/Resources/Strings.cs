@@ -227,4 +227,18 @@ public static class Strings
     public static string ColorStartBg => Get(nameof(ColorStartBg));
     public static string ColorEndFg => Get(nameof(ColorEndFg));
     public static string ColorEndBg => Get(nameof(ColorEndBg));
+
+    // ANSI color names
+    public static string ColorBlack => Get(nameof(ColorBlack));
+    public static string ColorRed => Get(nameof(ColorRed));
+    public static string ColorGreen => Get(nameof(ColorGreen));
+    public static string ColorYellow => Get(nameof(ColorYellow));
+    public static string ColorBlue => Get(nameof(ColorBlue));
+    public static string ColorMagenta => Get(nameof(ColorMagenta));
+    public static string ColorCyan => Get(nameof(ColorCyan));
+    public static string ColorWhite => Get(nameof(ColorWhite));
+    public static string ColorCursor => Get(nameof(ColorCursor));
+
+    // Watermarks
+    public static string WatermarkFallbackNormal => Get(nameof(WatermarkFallbackNormal));
 }

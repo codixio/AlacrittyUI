@@ -102,7 +102,15 @@ public class ThemeService
     public void SaveTheme(string name, ColorPalette palette)
     {
         var dir = GetUserThemesDirectory();
-        Directory.CreateDirectory(dir);
+        try
+        {
+            Directory.CreateDirectory(dir);
+        }
+        catch (Exception ex)
+        {
+            Logger.Error(ex, "Failed to create themes directory {Dir}", dir);
+            throw;
+        }
 
         var path = Path.Combine(dir, $"{name}.toml");
         var config = new AlacrittyConfig { Colors = palette };
@@ -153,9 +161,24 @@ public class ThemeService
     }
 
     private static string GetUserThemesDirectory()
+        => Path.Combine(GetAppDataDirectory(), "themes");
+
+    internal static string GetAppDataDirectory()
     {
-        var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        return Path.Combine(appData, "AlacrittyUI", "themes");
+        if (OperatingSystem.IsWindows())
+        {
+            return Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                "AlacrittyUI");
+        }
+
+        // Linux/macOS: prefer $XDG_DATA_HOME, fall back to ~/.local/share
+        var xdgData = Environment.GetEnvironmentVariable("XDG_DATA_HOME");
+        if (!string.IsNullOrEmpty(xdgData))
+            return Path.Combine(xdgData, "AlacrittyUI");
+
+        var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        return Path.Combine(home, ".local", "share", "AlacrittyUI");
     }
 
     private static string FormatThemeName(string fileName)

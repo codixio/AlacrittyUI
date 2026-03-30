@@ -4,8 +4,11 @@ public class FontConfig
 {
     public double Size { get; set; } = 11.25;
 
-    // normal font
-    public string NormalFamily { get; set; } = "monospace";
+    // normal font — Alacritty defaults: "monospace" on Linux/macOS, no built-in Windows alias
+    public string NormalFamily { get; set; } = GetDefaultFontFamily();
+
+    public static string GetDefaultFontFamily()
+        => OperatingSystem.IsWindows() ? "Consolas" : "monospace";
     public string NormalStyle { get; set; } = "Regular";
 
     // bold font

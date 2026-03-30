@@ -11,14 +11,12 @@ public partial class InfoViewModel : ObservableObject
 
     public string AppName => "AlacrittyUI";
 
-    public string Version
+    public string Version { get; } = GetVersion();
+
+    private static string GetVersion()
     {
-        get
-        {
-            var asm = Assembly.GetExecutingAssembly();
-            var ver = asm.GetName().Version;
-            return ver != null ? $"{ver.Major}.{ver.Minor}.{ver.Build}" : "0.1.0";
-        }
+        var ver = Assembly.GetExecutingAssembly().GetName().Version;
+        return ver != null ? $"{ver.Major}.{ver.Minor}.{ver.Build}" : "0.1.0";
     }
 
     public string Developer => "Codixio";

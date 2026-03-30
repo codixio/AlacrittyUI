@@ -40,17 +40,17 @@
                         <!-- Bold -->
                         <TextBlock Grid.Row="2" Grid.Column="0" Text="{x:Static res:Strings.FontBold}"
                                    VerticalAlignment="Center" />
-                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding BoldFamily}" Watermark="(Normal)" />
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding BoldFamily}" Watermark="{x:Static res:Strings.WatermarkFallbackNormal}" />
                         <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding BoldStyle}" />
                         <!-- Italic -->
                         <TextBlock Grid.Row="3" Grid.Column="0" Text="{x:Static res:Strings.FontItalic}"
                                    VerticalAlignment="Center" />
-                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding ItalicFamily}" Watermark="(Normal)" />
+                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding ItalicFamily}" Watermark="{x:Static res:Strings.WatermarkFallbackNormal}" />
                         <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding ItalicStyle}" />
                         <!-- Bold Italic -->
                         <TextBlock Grid.Row="4" Grid.Column="0" Text="{x:Static res:Strings.FontBoldItalic}"
                                    VerticalAlignment="Center" />
-                        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding BoldItalicFamily}" Watermark="(Normal)" />
+                        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding BoldItalicFamily}" Watermark="{x:Static res:Strings.WatermarkFallbackNormal}" />
                         <TextBox Grid.Row="4" Grid.Column="2" Text="{Binding BoldItalicStyle}" />
                     </Grid>
                 </StackPanel>

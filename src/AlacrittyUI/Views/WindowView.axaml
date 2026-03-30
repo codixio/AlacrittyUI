@@ -76,7 +76,7 @@
 
                     <TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center">
                         <Run Text="{x:Static res:Strings.WindowOptionAsAlt}" />
-                        <Run Text=" " /><Run Text="{x:Static res:Strings.LabelMacOsOnly}" Foreground="Gray" />
+                        <Run Text=" " /><Run Text="{x:Static res:Strings.LabelMacOsOnly}" Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}" />
                     </TextBlock>
                     <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding OptionAsAltOptions}" SelectedItem="{Binding OptionAsAlt}" MinWidth="180" />
                 </Grid>
@@ -97,7 +97,7 @@
                 <!-- Window Class -->
                 <TextBlock FontWeight="SemiBold">
                     <Run Text="{x:Static res:Strings.WindowClass}" />
-                    <Run Text=" " /><Run Text="{x:Static res:Strings.LabelLinuxBsdOnly}" Foreground="Gray" />
+                    <Run Text=" " /><Run Text="{x:Static res:Strings.LabelLinuxBsdOnly}" Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}" />
                 </TextBlock>
                 <Grid ColumnDefinitions="100,*,100,*" ColumnSpacing="8">
                     <TextBlock Text="{x:Static res:Strings.LabelInstance}" VerticalAlignment="Center" />

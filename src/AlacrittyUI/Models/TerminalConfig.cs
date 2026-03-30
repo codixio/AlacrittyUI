@@ -2,9 +2,12 @@ namespace AlacrittyUI.Models;
 
 public class TerminalConfig
 {
+    public const int DefaultScrollingHistory = 10000;
+    public const int DefaultScrollingMultiplier = 3;
+
     // scrolling
-    public int ScrollingHistory { get; set; } = 10000;
-    public int ScrollingMultiplier { get; set; } = 3;
+    public int ScrollingHistory { get; set; } = DefaultScrollingHistory;
+    public int ScrollingMultiplier { get; set; } = DefaultScrollingMultiplier;
 
     // shell
     public string ShellProgram { get; set; } = string.Empty;

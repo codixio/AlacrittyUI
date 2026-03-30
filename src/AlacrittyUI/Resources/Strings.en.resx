@@ -229,4 +229,16 @@
   <data name="ColorStartBg" xml:space="preserve"><value>Start BG</value></data>
   <data name="ColorEndFg" xml:space="preserve"><value>End FG</value></data>
   <data name="ColorEndBg" xml:space="preserve"><value>End BG</value></data>
+  <!-- ANSI color names -->
+  <data name="ColorBlack" xml:space="preserve"><value>Black</value></data>
+  <data name="ColorRed" xml:space="preserve"><value>Red</value></data>
+  <data name="ColorGreen" xml:space="preserve"><value>Green</value></data>
+  <data name="ColorYellow" xml:space="preserve"><value>Yellow</value></data>
+  <data name="ColorBlue" xml:space="preserve"><value>Blue</value></data>
+  <data name="ColorMagenta" xml:space="preserve"><value>Magenta</value></data>
+  <data name="ColorCyan" xml:space="preserve"><value>Cyan</value></data>
+  <data name="ColorWhite" xml:space="preserve"><value>White</value></data>
+  <data name="ColorCursor" xml:space="preserve"><value>Cursor</value></data>
+  <!-- Watermark placeholders -->
+  <data name="WatermarkFallbackNormal" xml:space="preserve"><value>(Normal)</value></data>
 </root>

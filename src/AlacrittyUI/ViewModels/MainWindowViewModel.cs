@@ -119,13 +119,10 @@ public partial class MainWindowViewModel : ObservableObject
 
     private void SubscribeToColorCollections()
     {
-        var collections = new[]
-        {
-            ColorEditor.PrimaryColors, ColorEditor.NormalColors, ColorEditor.BrightColors,
-            ColorEditor.CursorColors, ColorEditor.SelectionColors, ColorEditor.SearchColors,
-            ColorEditor.FooterColors, ColorEditor.ViModeCursorColors, ColorEditor.HintsColors,
-            ColorEditor.LineIndicatorColors, ColorEditor.DimColors
-        };
+        // unsubscribe existing color entry handlers to prevent leaks on reload
+        UnsubscribeFromColorEntries();
+
+        var collections = GetColorCollections();
 
         foreach (var collection in collections)
         {
@@ -143,6 +140,23 @@ public partial class MainWindowViewModel : ObservableObject
                 entry.PropertyChanged += OnChildPropertyChanged;
         }
     }
+
+    private void UnsubscribeFromColorEntries()
+    {
+        foreach (var collection in GetColorCollections())
+        {
+            foreach (var entry in collection)
+                entry.PropertyChanged -= OnChildPropertyChanged;
+        }
+    }
+
+    private System.Collections.ObjectModel.ObservableCollection<ColorEntry>[] GetColorCollections() =>
+    [
+        ColorEditor.PrimaryColors, ColorEditor.NormalColors, ColorEditor.BrightColors,
+        ColorEditor.CursorColors, ColorEditor.SelectionColors, ColorEditor.SearchColors,
+        ColorEditor.FooterColors, ColorEditor.ViModeCursorColors, ColorEditor.HintsColors,
+        ColorEditor.LineIndicatorColors, ColorEditor.DimColors
+    ];
 
     private void OnChildPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
@@ -187,8 +201,10 @@ public partial class MainWindowViewModel : ObservableObject
         }
         else
         {
+            // no config found — use default path so the user can save
+            ConfigPath = ConfigDiscoveryService.GetDefaultConfigPath();
             StatusText = Strings.StatusNoConfig;
-            HasConfig = false;
+            HasConfig = true;
             var defaults = new AlacrittyConfig();
             _config = defaults;
             LoadAllViewModels(defaults);

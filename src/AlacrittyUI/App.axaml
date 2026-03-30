@@ -3,6 +3,11 @@
              x:Class="AlacrittyUI.App"
              RequestedThemeVariant="Default">
 
+    <Application.Resources>
+        <SolidColorBrush x:Key="DialogOverlayBrush" Color="#80000000" />
+        <BoxShadows x:Key="DialogBoxShadow">0 4 24 0 #40000000</BoxShadows>
+    </Application.Resources>
+
     <Application.Styles>
         <FluentTheme />
     </Application.Styles>

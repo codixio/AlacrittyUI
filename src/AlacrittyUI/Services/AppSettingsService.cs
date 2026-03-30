@@ -5,11 +5,15 @@ namespace AlacrittyUI.Services;
 
 public class AppSettings
 {
-    public double WindowWidth { get; set; } = 1350;
-    public double WindowHeight { get; set; } = 900;
+    public const double DefaultWindowWidth = 1350;
+    public const double DefaultWindowHeight = 900;
+    public const double DefaultUiScale = 1.0;
+
+    public double WindowWidth { get; set; } = DefaultWindowWidth;
+    public double WindowHeight { get; set; } = DefaultWindowHeight;
     public double? WindowX { get; set; }
     public double? WindowY { get; set; }
-    public double UiScale { get; set; } = 1.0;
+    public double UiScale { get; set; } = DefaultUiScale;
     public string? LastConfigPath { get; set; }
     public string Language { get; set; } = "en";
 }
@@ -25,8 +29,23 @@ public class AppSettingsService
 
     public AppSettingsService()
     {
-        var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        var dir = Path.Combine(appData, "AlacrittyUI");
+        string dir;
+        if (OperatingSystem.IsWindows())
+        {
+            dir = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                "AlacrittyUI");
+        }
+        else
+        {
+            // Linux/macOS: prefer $XDG_CONFIG_HOME, fall back to ~/.config
+            var xdgConfig = Environment.GetEnvironmentVariable("XDG_CONFIG_HOME");
+            dir = !string.IsNullOrEmpty(xdgConfig)
+                ? Path.Combine(xdgConfig, "AlacrittyUI")
+                : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+                    ".config", "AlacrittyUI");
+        }
+
         _settingsPath = Path.Combine(dir, "settings.json");
     }
 

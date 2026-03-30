@@ -238,12 +238,21 @@ public class ConfigWriterService
             position["y"] = (long)window.PositionY;
         }
 
-        var cls = GetOrCreateTable(windowTable, "class");
-        cls["instance"] = window.ClassInstance;
-        cls["general"] = window.ClassGeneral;
+        // window.class is Linux/BSD only — skip on other platforms unless already present
+        if (!OperatingSystem.IsWindows() && !OperatingSystem.IsMacOS()
+            || windowTable.ContainsKey("class"))
+        {
+            var cls = GetOrCreateTable(windowTable, "class");
+            cls["instance"] = window.ClassInstance;
+            cls["general"] = window.ClassGeneral;
+        }
 
         windowTable["decorations_theme_variant"] = window.DecorationsThemeVariant;
-        windowTable["option_as_alt"] = window.OptionAsAlt;
+
+        // option_as_alt is macOS only — skip on other platforms unless already present
+        if (OperatingSystem.IsMacOS() || windowTable.ContainsKey("option_as_alt"))
+            windowTable["option_as_alt"] = window.OptionAsAlt;
+
         windowTable["level"] = window.Level;
     }
 
@@ -431,16 +440,23 @@ public class ConfigWriterService
         var prefix = fileName + ".bak";
 
         int highest = 1;
-        foreach (var file in Directory.GetFiles(dir, prefix + "*"))
+        try
         {
-            var name = Path.GetFileName(file);
-            var suffix = name[prefix.Length..];
+            foreach (var file in Directory.GetFiles(dir, prefix + "*"))
+            {
+                var name = Path.GetFileName(file);
+                var suffix = name[prefix.Length..];
 
-            if (suffix.Length == 0)
-                continue; // that's .bak itself, already counted as 1
+                if (suffix.Length == 0)
+                    continue; // that's .bak itself, already counted as 1
 
-            if (int.TryParse(suffix, out var num) && num > highest)
-                highest = num;
+                if (int.TryParse(suffix, out var num) && num > highest)
+                    highest = num;
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.Warning(ex, "Could not enumerate backup files in {Dir}, falling back to next index", dir);
         }
 
         return path + ".bak" + (highest + 1);

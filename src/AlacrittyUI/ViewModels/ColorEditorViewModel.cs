@@ -36,28 +36,28 @@ public partial class ColorEditorViewModel : ObservableObject
             PrimaryColors.Add(new ColorEntry(Strings.ColorBrightForeground, p.BrightForeground, "bright_foreground"));
 
         NormalColors.Clear();
-        NormalColors.Add(new ColorEntry("Black", p.NormalBlack, "normal.black"));
-        NormalColors.Add(new ColorEntry("Red", p.NormalRed, "normal.red"));
-        NormalColors.Add(new ColorEntry("Green", p.NormalGreen, "normal.green"));
-        NormalColors.Add(new ColorEntry("Yellow", p.NormalYellow, "normal.yellow"));
-        NormalColors.Add(new ColorEntry("Blue", p.NormalBlue, "normal.blue"));
-        NormalColors.Add(new ColorEntry("Magenta", p.NormalMagenta, "normal.magenta"));
-        NormalColors.Add(new ColorEntry("Cyan", p.NormalCyan, "normal.cyan"));
-        NormalColors.Add(new ColorEntry("White", p.NormalWhite, "normal.white"));
+        NormalColors.Add(new ColorEntry(Strings.ColorBlack, p.NormalBlack, "normal.black"));
+        NormalColors.Add(new ColorEntry(Strings.ColorRed, p.NormalRed, "normal.red"));
+        NormalColors.Add(new ColorEntry(Strings.ColorGreen, p.NormalGreen, "normal.green"));
+        NormalColors.Add(new ColorEntry(Strings.ColorYellow, p.NormalYellow, "normal.yellow"));
+        NormalColors.Add(new ColorEntry(Strings.ColorBlue, p.NormalBlue, "normal.blue"));
+        NormalColors.Add(new ColorEntry(Strings.ColorMagenta, p.NormalMagenta, "normal.magenta"));
+        NormalColors.Add(new ColorEntry(Strings.ColorCyan, p.NormalCyan, "normal.cyan"));
+        NormalColors.Add(new ColorEntry(Strings.ColorWhite, p.NormalWhite, "normal.white"));
 
         BrightColors.Clear();
-        BrightColors.Add(new ColorEntry("Black", p.BrightBlack, "bright.black"));
-        BrightColors.Add(new ColorEntry("Red", p.BrightRed, "bright.red"));
-        BrightColors.Add(new ColorEntry("Green", p.BrightGreen, "bright.green"));
-        BrightColors.Add(new ColorEntry("Yellow", p.BrightYellow, "bright.yellow"));
-        BrightColors.Add(new ColorEntry("Blue", p.BrightBlue, "bright.blue"));
-        BrightColors.Add(new ColorEntry("Magenta", p.BrightMagenta, "bright.magenta"));
-        BrightColors.Add(new ColorEntry("Cyan", p.BrightCyan, "bright.cyan"));
-        BrightColors.Add(new ColorEntry("White", p.BrightWhite, "bright.white"));
+        BrightColors.Add(new ColorEntry(Strings.ColorBlack, p.BrightBlack, "bright.black"));
+        BrightColors.Add(new ColorEntry(Strings.ColorRed, p.BrightRed, "bright.red"));
+        BrightColors.Add(new ColorEntry(Strings.ColorGreen, p.BrightGreen, "bright.green"));
+        BrightColors.Add(new ColorEntry(Strings.ColorYellow, p.BrightYellow, "bright.yellow"));
+        BrightColors.Add(new ColorEntry(Strings.ColorBlue, p.BrightBlue, "bright.blue"));
+        BrightColors.Add(new ColorEntry(Strings.ColorMagenta, p.BrightMagenta, "bright.magenta"));
+        BrightColors.Add(new ColorEntry(Strings.ColorCyan, p.BrightCyan, "bright.cyan"));
+        BrightColors.Add(new ColorEntry(Strings.ColorWhite, p.BrightWhite, "bright.white"));
 
         CursorColors.Clear();
         CursorColors.Add(new ColorEntry(Strings.ColorText, p.CursorText ?? "#181818", "cursor.text"));
-        CursorColors.Add(new ColorEntry("Cursor", p.CursorColor ?? "#d8d8d8", "cursor.cursor"));
+        CursorColors.Add(new ColorEntry(Strings.ColorCursor, p.CursorColor ?? "#d8d8d8", "cursor.cursor"));
 
         SelectionColors.Clear();
         SelectionColors.Add(new ColorEntry(Strings.ColorText, p.SelectionText ?? "#181818", "selection.text"));
@@ -75,7 +75,7 @@ public partial class ColorEditorViewModel : ObservableObject
 
         ViModeCursorColors.Clear();
         ViModeCursorColors.Add(new ColorEntry(Strings.ColorText, p.ViModeCursorText ?? "#181818", "vi_cursor.text"));
-        ViModeCursorColors.Add(new ColorEntry("Cursor", p.ViModeCursorColor ?? "#d8d8d8", "vi_cursor.cursor"));
+        ViModeCursorColors.Add(new ColorEntry(Strings.ColorCursor, p.ViModeCursorColor ?? "#d8d8d8", "vi_cursor.cursor"));
 
         HintsColors.Clear();
         HintsColors.Add(new ColorEntry(Strings.ColorStartFg, p.HintsStartForeground ?? "#181818", "hints.start.fg"));
@@ -88,14 +88,14 @@ public partial class ColorEditorViewModel : ObservableObject
         LineIndicatorColors.Add(new ColorEntry(Strings.ColorBackground, p.LineIndicatorBackground ?? "#ffffff", "line.bg"));
 
         DimColors.Clear();
-        DimColors.Add(new ColorEntry("Black", p.DimBlack ?? "#0f0f0f", "dim.black"));
-        DimColors.Add(new ColorEntry("Red", p.DimRed ?? "#712b2b", "dim.red"));
-        DimColors.Add(new ColorEntry("Green", p.DimGreen ?? "#5f6f3a", "dim.green"));
-        DimColors.Add(new ColorEntry("Yellow", p.DimYellow ?? "#a17e4d", "dim.yellow"));
-        DimColors.Add(new ColorEntry("Blue", p.DimBlue ?? "#456877", "dim.blue"));
-        DimColors.Add(new ColorEntry("Magenta", p.DimMagenta ?? "#704d68", "dim.magenta"));
-        DimColors.Add(new ColorEntry("Cyan", p.DimCyan ?? "#4d7770", "dim.cyan"));
-        DimColors.Add(new ColorEntry("White", p.DimWhite ?? "#8e8e8e", "dim.white"));
+        DimColors.Add(new ColorEntry(Strings.ColorBlack, p.DimBlack ?? "#0f0f0f", "dim.black"));
+        DimColors.Add(new ColorEntry(Strings.ColorRed, p.DimRed ?? "#712b2b", "dim.red"));
+        DimColors.Add(new ColorEntry(Strings.ColorGreen, p.DimGreen ?? "#5f6f3a", "dim.green"));
+        DimColors.Add(new ColorEntry(Strings.ColorYellow, p.DimYellow ?? "#a17e4d", "dim.yellow"));
+        DimColors.Add(new ColorEntry(Strings.ColorBlue, p.DimBlue ?? "#456877", "dim.blue"));
+        DimColors.Add(new ColorEntry(Strings.ColorMagenta, p.DimMagenta ?? "#704d68", "dim.magenta"));
+        DimColors.Add(new ColorEntry(Strings.ColorCyan, p.DimCyan ?? "#4d7770", "dim.cyan"));
+        DimColors.Add(new ColorEntry(Strings.ColorWhite, p.DimWhite ?? "#8e8e8e", "dim.white"));
 
         DrawBoldTextWithBrightColors = p.DrawBoldTextWithBrightColors;
         TransparentBackgroundColors = p.TransparentBackgroundColors;

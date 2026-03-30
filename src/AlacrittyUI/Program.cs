@@ -13,7 +13,7 @@ class Program
             "AlacrittyUI", "logs");
 
         try { Directory.CreateDirectory(logDir); }
-        catch { /* log dir creation failed — file logging may not work */ }
+        catch (Exception ex) { Console.Error.WriteLine($"Failed to create log directory: {ex.Message}"); }
 
         Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Information()

@@ -38,7 +38,8 @@ public partial class MainWindow : Window
         else
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
-        if (Math.Abs(s.UiScale - 1.0) > 0.01)
+        const double scaleEpsilon = 0.01;
+        if (Math.Abs(s.UiScale - AppSettings.DefaultUiScale) > scaleEpsilon)
             RenderTransform = new ScaleTransform(s.UiScale, s.UiScale);
     }
 
@@ -111,6 +112,8 @@ public partial class MainWindow : Window
 
     private async Task DoBrowseAsync()
     {
+        try
+        {
         var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
         {
             Title = Strings.DialogOpenConfig,
@@ -127,6 +130,11 @@ public partial class MainWindow : Window
             var path = files[0].TryGetLocalPath();
             if (path != null)
                 vm.LoadConfigFromPath(path);
+        }
+        }
+        catch (Exception ex)
+        {
+            Log.ForContext<MainWindow>().Error(ex, "File picker failed");
         }
     }
 

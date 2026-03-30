@@ -35,6 +35,9 @@ public partial class TerminalViewModel : ObservableObject
     [ObservableProperty] private string _workingDirectory = string.Empty;
     [ObservableProperty] private string _importPaths = string.Empty;
 
+    public string ShellProgramPlaceholder { get; } =
+        OperatingSystem.IsWindows() ? "powershell.exe" : "/bin/bash";
+
     public string[] Osc52Options => TerminalConfig.Osc52Options;
     public string[] BellAnimationOptions => TerminalConfig.BellAnimationOptions;
 

@@ -6,7 +6,7 @@ namespace AlacrittyUI.ViewModels;
 public partial class FontViewModel : ObservableObject
 {
     [ObservableProperty] private double _size = 11.25;
-    [ObservableProperty] private string _normalFamily = "monospace";
+    [ObservableProperty] private string _normalFamily = FontConfig.GetDefaultFontFamily();
     [ObservableProperty] private string _normalStyle = "Regular";
     [ObservableProperty] private string _boldFamily = string.Empty;
     [ObservableProperty] private string _boldStyle = "Bold";

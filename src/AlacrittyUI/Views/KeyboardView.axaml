@@ -36,10 +36,10 @@
                     <TextBox Text="{Binding Key}" Width="200" />
 
                     <TextBlock Text="{x:Static res:Strings.LabelMods}" FontWeight="SemiBold" />
-                    <TextBox Text="{Binding Mods}" Width="200" Watermark="Control|Shift" />
+                    <TextBox Text="{Binding Mods}" Width="200" Watermark="{x:Static res:Strings.LabelMods}" />
 
                     <TextBlock Text="{x:Static res:Strings.LabelMode}" FontWeight="SemiBold" />
-                    <TextBox Text="{Binding Mode}" Width="200" Watermark="~Vi" />
+                    <TextBox Text="{Binding Mode}" Width="200" Watermark="{x:Static res:Strings.LabelMode}" />
 
                     <TextBlock Text="{x:Static res:Strings.LabelAction}" FontWeight="SemiBold" />
                     <ComboBox ItemsSource="{Binding ActionOptions}" SelectedItem="{Binding Action}"

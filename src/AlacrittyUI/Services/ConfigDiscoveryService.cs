@@ -32,6 +32,11 @@ public class ConfigDiscoveryService
                 "alacritty", "alacritty.toml");
         }
 
+        // respect XDG_CONFIG_HOME on Linux/macOS, fall back to ~/.config
+        var xdgConfig = Environment.GetEnvironmentVariable("XDG_CONFIG_HOME");
+        if (!string.IsNullOrEmpty(xdgConfig))
+            return Path.Combine(xdgConfig, "alacritty", "alacritty.toml");
+
         var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
         return Path.Combine(home, ".config", "alacritty", "alacritty.toml");
     }
@@ -39,19 +44,16 @@ public class ConfigDiscoveryService
     private static List<string> GetCandidatePaths()
     {
         var paths = new List<string>();
-        var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 
         if (OperatingSystem.IsWindows())
         {
-            // official Windows path
             var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             paths.Add(Path.Combine(appData, "alacritty", "alacritty.toml"));
-
-            // many users use ~/.config/ on Windows too (e.g. via scoop, msys2, or manually)
-            paths.Add(Path.Combine(home, ".config", "alacritty", "alacritty.toml"));
         }
         else
         {
+            var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+
             var xdgConfig = Environment.GetEnvironmentVariable("XDG_CONFIG_HOME");
             if (!string.IsNullOrEmpty(xdgConfig))
                 paths.Add(Path.Combine(xdgConfig, "alacritty", "alacritty.toml"));
