@@ -4,7 +4,7 @@ A cross-platform settings editor for the [Alacritty](https://alacritty.org/) ter
 
 Alacritty is fast, minimal, and configurable — but all configuration happens through a TOML file. AlacrittyUI gives you a visual interface to tweak colors, fonts, and settings without memorizing config keys. Changes are written directly to your `alacritty.toml` and apply instantly via Alacritty's live reload.
 
-![Screenshot placeholder](docs/screenshot.png)
+![Screenshot](docs/screenshot.png)
 
 ## What it does
 
