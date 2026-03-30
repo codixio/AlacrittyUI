@@ -39,11 +39,16 @@ public class ConfigDiscoveryService
     private static List<string> GetCandidatePaths()
     {
         var paths = new List<string>();
+        var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 
         if (OperatingSystem.IsWindows())
         {
+            // official Windows path
             var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             paths.Add(Path.Combine(appData, "alacritty", "alacritty.toml"));
+
+            // many users use ~/.config/ on Windows too (e.g. via scoop, msys2, or manually)
+            paths.Add(Path.Combine(home, ".config", "alacritty", "alacritty.toml"));
         }
         else
         {
@@ -51,7 +56,6 @@ public class ConfigDiscoveryService
             if (!string.IsNullOrEmpty(xdgConfig))
                 paths.Add(Path.Combine(xdgConfig, "alacritty", "alacritty.toml"));
 
-            var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
             paths.Add(Path.Combine(home, ".config", "alacritty", "alacritty.toml"));
         }
 

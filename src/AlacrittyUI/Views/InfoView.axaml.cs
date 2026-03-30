@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using Avalonia.Controls;
 using Avalonia.Input;
 using AlacrittyUI.ViewModels;
+using Serilog;
 
 namespace AlacrittyUI.Views;
 
@@ -55,9 +56,9 @@ public partial class InfoView : UserControl
             else
                 Process.Start("xdg-open", url);
         }
-        catch
+        catch (Exception ex)
         {
-            // browser launch failed — not critical
+            Log.ForContext<InfoView>().Warning(ex, "Failed to open URL {Url}", url);
         }
     }
 }

@@ -35,14 +35,7 @@ public partial class ColorEntry : ObservableObject
 
     private void UpdatePreview()
     {
-        try
-        {
-            if (Color.TryParse(HexValue, out var color))
-                Preview = new SolidColorBrush(color);
-        }
-        catch
-        {
-            // invalid hex input — keep previous preview
-        }
+        if (Color.TryParse(HexValue, out var color))
+            Preview = new SolidColorBrush(color);
     }
 }

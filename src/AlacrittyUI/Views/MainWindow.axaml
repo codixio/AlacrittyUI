@@ -8,13 +8,15 @@
         mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="600"
         x:Class="AlacrittyUI.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Title="AlacrittyUI"
-        Width="900" Height="600"
-        MinWidth="700" MinHeight="450">
+        Title="{Binding WindowTitle}"
+        Width="1350" Height="900"
+        MinWidth="1000" MinHeight="650">
 
+    <!-- Root Grid: content layer + dialog overlay layer -->
+    <Grid>
     <DockPanel>
         <!-- Header bar -->
-        <Border DockPanel.Dock="Top" Padding="12,8" BorderThickness="0,0,0,1"
+        <Border DockPanel.Dock="Top" Padding="18,12" BorderThickness="0,0,0,1"
                 BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}">
             <DockPanel>
                 <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="8">
@@ -23,44 +25,148 @@
                     <Button Content="{x:Static res:Strings.ButtonSave}"
                             Command="{Binding SaveCommand}"
                             IsEnabled="{Binding HasConfig}" />
+                    <Button Content="{x:Static res:Strings.ButtonReset}"
+                            Command="{Binding RequestResetCommand}" />
                 </StackPanel>
-                <TextBlock Text="{Binding ConfigPath}" VerticalAlignment="Center"
-                           Opacity="0.7" TextTrimming="CharacterEllipsis"
-                           FontFamily="Consolas,Menlo,monospace" FontSize="12" />
+                <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                    <TextBlock Text="{x:Static res:Strings.LabelConfig}"
+                               FontWeight="SemiBold" FontSize="15" />
+                    <TextBlock Text="{Binding ConfigPath}" Cursor="Hand"
+                               Opacity="0.7" TextTrimming="CharacterEllipsis"
+                               FontFamily="Consolas,Menlo,monospace" FontSize="14"
+                               PointerPressed="OnConfigPathClick">
+                        <TextBlock.Styles>
+                            <Style Selector="TextBlock:pointerover">
+                                <Setter Property="Opacity" Value="1.0" />
+                                <Setter Property="TextDecorations" Value="Underline" />
+                            </Style>
+                        </TextBlock.Styles>
+                    </TextBlock>
+                    <TextBlock Text="*" FontSize="16" FontWeight="Bold"
+                               IsVisible="{Binding IsDirty}"
+                               Foreground="{DynamicResource SystemAccentColor}" />
+                </StackPanel>
             </DockPanel>
         </Border>
 
         <!-- Status bar -->
-        <Border DockPanel.Dock="Bottom" Padding="12,6" BorderThickness="0,1,0,0"
+        <Border DockPanel.Dock="Bottom" Padding="18,10" BorderThickness="0,1,0,0"
                 BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}">
-            <TextBlock Text="{Binding StatusText}" FontSize="12" Opacity="0.7" />
+            <TextBlock Text="{Binding StatusText}" FontSize="14" Opacity="0.7" />
         </Border>
 
-        <!-- Main content: left tabs -->
-        <TabControl TabStripPlacement="Left"
-                    SelectedIndex="{Binding SelectedTabIndex}"
-                    Padding="0">
+        <!-- Main content: sidebar + content -->
+        <Grid ColumnDefinitions="Auto,*">
 
-            <TabControl.Styles>
-                <Style Selector="TabItem">
-                    <Setter Property="MinWidth" Value="120" />
-                    <Setter Property="MinHeight" Value="40" />
-                    <Setter Property="FontSize" Value="14" />
-                    <Setter Property="Padding" Value="16,10" />
-                </Style>
-            </TabControl.Styles>
+            <!-- Left sidebar navigation -->
+            <ListBox Grid.Column="0" SelectedIndex="{Binding SelectedTabIndex}"
+                     BorderThickness="0,0,1,0"
+                     BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}">
+                <ListBox.Styles>
+                    <Style Selector="ListBoxItem">
+                        <Setter Property="MinWidth" Value="160" />
+                        <Setter Property="MinHeight" Value="48" />
+                        <Setter Property="FontSize" Value="16" />
+                        <Setter Property="Padding" Value="20,12" />
+                    </Style>
+                </ListBox.Styles>
+                <ListBoxItem Content="{x:Static res:Strings.TabColors}" />
+                <ListBoxItem Content="{x:Static res:Strings.TabFont}" />
+                <ListBoxItem Content="{x:Static res:Strings.TabWindow}" />
+                <ListBoxItem Content="{x:Static res:Strings.TabCursor}" />
+                <ListBoxItem Content="{x:Static res:Strings.TabTerminal}" />
+                <ListBoxItem Content="{x:Static res:Strings.TabHints}" />
+                <ListBoxItem Content="{x:Static res:Strings.TabKeyboard}" />
+                <ListBoxItem Content="{x:Static res:Strings.TabThemes}" />
+                <ListBoxItem Content="{x:Static res:Strings.TabDebug}" />
+                <ListBoxItem Content="{x:Static res:Strings.TabInfo}" />
+            </ListBox>
 
-            <TabItem Header="{x:Static res:Strings.TabColors}">
-                <views:ColorEditorView DataContext="{Binding ColorEditor}" />
-            </TabItem>
-
-            <TabItem Header="{x:Static res:Strings.TabThemes}">
-                <views:ThemeManagerView DataContext="{Binding ThemeManager}" />
-            </TabItem>
-
-            <TabItem Header="{x:Static res:Strings.TabInfo}">
-                <views:InfoView DataContext="{Binding Info}" />
-            </TabItem>
-        </TabControl>
+            <!-- Right content area -->
+            <Grid Grid.Column="1">
+                <Border IsVisible="{Binding IsTab0}">
+                    <views:ColorEditorView DataContext="{Binding ColorEditor}" />
+                </Border>
+                <Border IsVisible="{Binding IsTab1}">
+                    <views:FontView DataContext="{Binding Font}" />
+                </Border>
+                <Border IsVisible="{Binding IsTab2}">
+                    <views:WindowView DataContext="{Binding Window}" />
+                </Border>
+                <Border IsVisible="{Binding IsTab3}">
+                    <views:CursorView DataContext="{Binding Cursor}" />
+                </Border>
+                <Border IsVisible="{Binding IsTab4}">
+                    <views:TerminalView DataContext="{Binding Terminal}" />
+                </Border>
+                <Border IsVisible="{Binding IsTab5}">
+                    <views:HintsView DataContext="{Binding Hints}" />
+                </Border>
+                <Border IsVisible="{Binding IsTab6}">
+                    <views:KeyboardView DataContext="{Binding Keyboard}" />
+                </Border>
+                <Border IsVisible="{Binding IsTab7}">
+                    <views:ThemeManagerView DataContext="{Binding ThemeManager}" />
+                </Border>
+                <Border IsVisible="{Binding IsTab8}">
+                    <views:DebugView DataContext="{Binding Debug}" />
+                </Border>
+                <Border IsVisible="{Binding IsTab9}">
+                    <views:InfoView DataContext="{Binding Info}" />
+                </Border>
+            </Grid>
+        </Grid>
     </DockPanel>
+
+    <!-- Dialog overlays — full window, centered -->
+    <!-- Reset confirmation -->
+        <Border IsVisible="{Binding ShowResetDialog}"
+                Background="#80000000"
+                HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Border Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                    CornerRadius="12" Padding="32" MinWidth="400"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    BoxShadow="0 4 24 0 #40000000">
+                <StackPanel Spacing="20">
+                    <TextBlock Text="{x:Static res:Strings.ResetTitle}"
+                               FontSize="20" FontWeight="Bold" />
+                    <TextBlock Text="{x:Static res:Strings.ResetMessage}"
+                               FontSize="14" TextWrapping="Wrap" MaxWidth="360" Opacity="0.8" />
+                    <StackPanel Orientation="Horizontal" Spacing="12" HorizontalAlignment="Right">
+                        <Button Content="{x:Static res:Strings.ButtonCancel}"
+                                Command="{Binding CancelResetCommand}" MinWidth="100" />
+                        <Button Content="{x:Static res:Strings.ButtonContinue}"
+                                Command="{Binding ConfirmResetCommand}" MinWidth="100"
+                                Classes="accent" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Border>
+
+        <!-- Unsaved changes overlay -->
+        <Border IsVisible="{Binding ShowUnsavedDialog}"
+                Background="#80000000"
+                HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Border Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                    CornerRadius="12" Padding="32" MinWidth="420"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    BoxShadow="0 4 24 0 #40000000">
+                <StackPanel Spacing="20">
+                    <TextBlock Text="{x:Static res:Strings.UnsavedTitle}"
+                               FontSize="20" FontWeight="Bold" />
+                    <TextBlock Text="{x:Static res:Strings.UnsavedMessage}"
+                               FontSize="14" TextWrapping="Wrap" MaxWidth="380" Opacity="0.8" />
+                    <StackPanel Orientation="Horizontal" Spacing="12" HorizontalAlignment="Right">
+                        <Button Content="{x:Static res:Strings.ButtonCancel}"
+                                Command="{Binding UnsavedCancelCommand}" MinWidth="100" />
+                        <Button Content="{x:Static res:Strings.ButtonDiscard}"
+                                Command="{Binding UnsavedDiscardCommand}" MinWidth="100" />
+                        <Button Content="{x:Static res:Strings.ButtonSave}"
+                                Command="{Binding UnsavedSaveCommand}" MinWidth="100"
+                                Classes="accent" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Border>
+    </Grid>
 </Window>

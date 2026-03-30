@@ -1,0 +1,99 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:AlacrittyUI.ViewModels"
+             xmlns:res="clr-namespace:AlacrittyUI.Resources"
+             mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="500"
+             x:Class="AlacrittyUI.Views.FontView"
+             x:DataType="vm:FontViewModel">
+
+    <TabControl TabStripPlacement="Top" Padding="12" FontSize="15">
+        <!-- Tab 1: Size + Font families -->
+        <TabItem Header="{x:Static res:Strings.FontTabMain}">
+            <StackPanel Spacing="20" Margin="16">
+                <!-- Font size -->
+                <StackPanel Spacing="6">
+                    <TextBlock Text="{x:Static res:Strings.FontSize}" FontSize="18" FontWeight="Bold" />
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Slider Grid.Column="0" Value="{Binding Size}" Minimum="6" Maximum="48"
+                                TickFrequency="0.25" Margin="0,0,16,0" />
+                        <NumericUpDown Grid.Column="1" Value="{Binding Size}" Minimum="4" Maximum="96"
+                                       Increment="0.25" FormatString="F2" MinWidth="140" />
+                    </Grid>
+                </StackPanel>
+
+                <!-- All fonts in one compact grid -->
+                <StackPanel Spacing="6">
+                    <TextBlock Text="{x:Static res:Strings.FontFamilies}" FontSize="18" FontWeight="Bold" />
+                    <Grid ColumnDefinitions="120,*,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="8" ColumnSpacing="12">
+                        <!-- Header row -->
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{x:Static res:Strings.LabelFamily}"
+                                   FontWeight="SemiBold" Opacity="0.7" />
+                        <TextBlock Grid.Row="0" Grid.Column="2" Text="{x:Static res:Strings.LabelStyle}"
+                                   FontWeight="SemiBold" Opacity="0.7" />
+                        <!-- Normal -->
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Static res:Strings.FontNormal}"
+                                   VerticalAlignment="Center" FontWeight="SemiBold" />
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding NormalFamily}" />
+                        <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding NormalStyle}" />
+                        <!-- Bold -->
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="{x:Static res:Strings.FontBold}"
+                                   VerticalAlignment="Center" />
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding BoldFamily}" Watermark="(Normal)" />
+                        <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding BoldStyle}" />
+                        <!-- Italic -->
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="{x:Static res:Strings.FontItalic}"
+                                   VerticalAlignment="Center" />
+                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding ItalicFamily}" Watermark="(Normal)" />
+                        <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding ItalicStyle}" />
+                        <!-- Bold Italic -->
+                        <TextBlock Grid.Row="4" Grid.Column="0" Text="{x:Static res:Strings.FontBoldItalic}"
+                                   VerticalAlignment="Center" />
+                        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding BoldItalicFamily}" Watermark="(Normal)" />
+                        <TextBox Grid.Row="4" Grid.Column="2" Text="{Binding BoldItalicStyle}" />
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
+        </TabItem>
+
+        <!-- Tab 2: Offsets + Options -->
+        <TabItem Header="{x:Static res:Strings.FontTabSpacing}">
+            <StackPanel Spacing="20" Margin="16">
+                <!-- Character offset -->
+                <StackPanel Spacing="6">
+                    <TextBlock Text="{x:Static res:Strings.FontOffset}" FontSize="18" FontWeight="Bold" />
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="20">
+                        <Grid Grid.Column="0" ColumnDefinitions="30,*">
+                            <TextBlock Text="X" VerticalAlignment="Center" />
+                            <NumericUpDown Grid.Column="1" Value="{Binding OffsetX}" Minimum="-10" Maximum="10" />
+                        </Grid>
+                        <Grid Grid.Column="1" ColumnDefinitions="30,*">
+                            <TextBlock Text="Y" VerticalAlignment="Center" />
+                            <NumericUpDown Grid.Column="1" Value="{Binding OffsetY}" Minimum="-10" Maximum="10" />
+                        </Grid>
+                    </Grid>
+                </StackPanel>
+
+                <!-- Glyph offset -->
+                <StackPanel Spacing="6">
+                    <TextBlock Text="{x:Static res:Strings.FontGlyphOffset}" FontSize="18" FontWeight="Bold" />
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="20">
+                        <Grid Grid.Column="0" ColumnDefinitions="30,*">
+                            <TextBlock Text="X" VerticalAlignment="Center" />
+                            <NumericUpDown Grid.Column="1" Value="{Binding GlyphOffsetX}" Minimum="-10" Maximum="10" />
+                        </Grid>
+                        <Grid Grid.Column="1" ColumnDefinitions="30,*">
+                            <TextBlock Text="Y" VerticalAlignment="Center" />
+                            <NumericUpDown Grid.Column="1" Value="{Binding GlyphOffsetY}" Minimum="-10" Maximum="10" />
+                        </Grid>
+                    </Grid>
+                </StackPanel>
+
+                <!-- Box drawing -->
+                <CheckBox Content="{x:Static res:Strings.FontBuiltinBoxDrawing}"
+                          IsChecked="{Binding BuiltinBoxDrawing}" />
+            </StackPanel>
+        </TabItem>
+    </TabControl>
+</UserControl>

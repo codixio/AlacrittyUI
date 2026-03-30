@@ -11,33 +11,32 @@
 
     <UserControl.Resources>
         <DataTemplate x:Key="ColorSwatchTemplate" x:DataType="models:ColorEntry">
-            <Border Padding="6" Margin="4" CornerRadius="6"
+            <Border Padding="10" Margin="5" CornerRadius="8"
                     Background="{DynamicResource SystemControlBackgroundAltMediumLowBrush}">
-                <StackPanel Orientation="Horizontal" Spacing="10">
-                    <Border Width="36" Height="36" CornerRadius="6"
+                <StackPanel Orientation="Horizontal" Spacing="14">
+                    <Border Width="48" Height="48" CornerRadius="8"
                             Background="{Binding Preview}"
                             BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
                             BorderThickness="1" />
-                    <StackPanel VerticalAlignment="Center" Spacing="2">
-                        <TextBlock Text="{Binding Label}" FontSize="12" FontWeight="SemiBold" />
-                        <TextBox Text="{Binding HexValue}" Width="90" FontSize="11"
+                    <StackPanel VerticalAlignment="Center" Spacing="4">
+                        <TextBlock Text="{Binding Label}" FontSize="15" FontWeight="SemiBold" />
+                        <TextBox Text="{Binding HexValue}" Width="120" FontSize="14"
                                  FontFamily="Consolas,Menlo,monospace"
-                                 Padding="4,2" MinHeight="0" />
+                                 Padding="6,4" MinHeight="0" />
                     </StackPanel>
                 </StackPanel>
             </Border>
         </DataTemplate>
     </UserControl.Resources>
 
-    <TabControl TabStripPlacement="Top" Padding="8">
+    <TabControl TabStripPlacement="Top" Padding="12" FontSize="15">
         <!-- Palette tab -->
         <TabItem Header="{x:Static res:Strings.SubTabPalette}">
-            <ScrollViewer Padding="8">
-                <StackPanel Spacing="16">
+                <StackPanel Spacing="16" Margin="12">
                     <!-- Primary -->
                     <StackPanel Spacing="4">
                         <TextBlock Text="{x:Static res:Strings.SectionPrimary}"
-                                   FontSize="16" FontWeight="Bold" Margin="4,0" />
+                                   FontSize="20" FontWeight="Bold" Margin="6,0" />
                         <ItemsControl ItemsSource="{Binding PrimaryColors}"
                                       ItemTemplate="{StaticResource ColorSwatchTemplate}">
                             <ItemsControl.ItemsPanel>
@@ -51,7 +50,7 @@
                     <!-- Normal -->
                     <StackPanel Spacing="4">
                         <TextBlock Text="{x:Static res:Strings.SectionNormal}"
-                                   FontSize="16" FontWeight="Bold" Margin="4,0" />
+                                   FontSize="20" FontWeight="Bold" Margin="6,0" />
                         <ItemsControl ItemsSource="{Binding NormalColors}"
                                       ItemTemplate="{StaticResource ColorSwatchTemplate}">
                             <ItemsControl.ItemsPanel>
@@ -65,7 +64,7 @@
                     <!-- Bright -->
                     <StackPanel Spacing="4">
                         <TextBlock Text="{x:Static res:Strings.SectionBright}"
-                                   FontSize="16" FontWeight="Bold" Margin="4,0" />
+                                   FontSize="20" FontWeight="Bold" Margin="6,0" />
                         <ItemsControl ItemsSource="{Binding BrightColors}"
                                       ItemTemplate="{StaticResource ColorSwatchTemplate}">
                             <ItemsControl.ItemsPanel>
@@ -76,72 +75,70 @@
                         </ItemsControl>
                     </StackPanel>
                 </StackPanel>
-            </ScrollViewer>
         </TabItem>
 
-        <!-- Special tab -->
+        <!-- Special tab: Cursor, Selection, Search, Footer -->
         <TabItem Header="{x:Static res:Strings.SubTabSpecial}">
-            <ScrollViewer Padding="8">
-                <StackPanel Spacing="16">
-                    <!-- Cursor -->
-                    <StackPanel Spacing="4">
-                        <TextBlock Text="{x:Static res:Strings.SectionCursor}"
-                                   FontSize="16" FontWeight="Bold" Margin="4,0" />
-                        <ItemsControl ItemsSource="{Binding CursorColors}"
-                                      ItemTemplate="{StaticResource ColorSwatchTemplate}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                        </ItemsControl>
-                    </StackPanel>
-
-                    <!-- Selection -->
-                    <StackPanel Spacing="4">
-                        <TextBlock Text="{x:Static res:Strings.SectionSelection}"
-                                   FontSize="16" FontWeight="Bold" Margin="4,0" />
-                        <ItemsControl ItemsSource="{Binding SelectionColors}"
-                                      ItemTemplate="{StaticResource ColorSwatchTemplate}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                        </ItemsControl>
-                    </StackPanel>
-
-                    <!-- Search -->
-                    <StackPanel Spacing="4">
-                        <TextBlock Text="{x:Static res:Strings.SectionSearch}"
-                                   FontSize="16" FontWeight="Bold" Margin="4,0" />
-                        <ItemsControl ItemsSource="{Binding SearchColors}"
-                                      ItemTemplate="{StaticResource ColorSwatchTemplate}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                        </ItemsControl>
-                    </StackPanel>
-
-                    <!-- Footer -->
-                    <StackPanel Spacing="4">
-                        <TextBlock Text="{x:Static res:Strings.SectionFooter}"
-                                   FontSize="16" FontWeight="Bold" Margin="4,0" />
-                        <ItemsControl ItemsSource="{Binding FooterColors}"
-                                      ItemTemplate="{StaticResource ColorSwatchTemplate}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                        </ItemsControl>
-                    </StackPanel>
-
-                    <!-- Flags -->
-                    <StackPanel Spacing="8" Margin="4,8,0,0">
-                        <TextBlock Text="{x:Static res:Strings.SectionFlags}"
-                                   FontSize="16" FontWeight="Bold" />
-                        <CheckBox Content="{x:Static res:Strings.ToggleBoldBright}"
-                                  IsChecked="{Binding DrawBoldTextWithBrightColors}" />
-                        <CheckBox Content="{x:Static res:Strings.ToggleTransparentBg}"
-                                  IsChecked="{Binding TransparentBackgroundColors}" />
-                    </StackPanel>
+            <StackPanel Spacing="14" Margin="12">
+                <StackPanel Spacing="4">
+                    <TextBlock Text="{x:Static res:Strings.SectionCursor}" FontSize="18" FontWeight="Bold" Margin="6,0" />
+                    <ItemsControl ItemsSource="{Binding CursorColors}" ItemTemplate="{StaticResource ColorSwatchTemplate}">
+                        <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+                    </ItemsControl>
                 </StackPanel>
-            </ScrollViewer>
+                <StackPanel Spacing="4">
+                    <TextBlock Text="{x:Static res:Strings.SectionSelection}" FontSize="18" FontWeight="Bold" Margin="6,0" />
+                    <ItemsControl ItemsSource="{Binding SelectionColors}" ItemTemplate="{StaticResource ColorSwatchTemplate}">
+                        <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </StackPanel>
+                <StackPanel Spacing="4">
+                    <TextBlock Text="{x:Static res:Strings.SectionSearch}" FontSize="18" FontWeight="Bold" Margin="6,0" />
+                    <ItemsControl ItemsSource="{Binding SearchColors}" ItemTemplate="{StaticResource ColorSwatchTemplate}">
+                        <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </StackPanel>
+                <StackPanel Spacing="4">
+                    <TextBlock Text="{x:Static res:Strings.SectionFooter}" FontSize="18" FontWeight="Bold" Margin="6,0" />
+                    <ItemsControl ItemsSource="{Binding FooterColors}" ItemTemplate="{StaticResource ColorSwatchTemplate}">
+                        <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </StackPanel>
+                <StackPanel Spacing="6" Margin="6,4,0,0">
+                    <CheckBox Content="{x:Static res:Strings.ToggleBoldBright}" IsChecked="{Binding DrawBoldTextWithBrightColors}" />
+                    <CheckBox Content="{x:Static res:Strings.ToggleTransparentBg}" IsChecked="{Binding TransparentBackgroundColors}" />
+                </StackPanel>
+            </StackPanel>
+        </TabItem>
+
+        <!-- Extended tab: Vi-Mode, Hints, Line Indicator, Dim -->
+        <TabItem Header="{x:Static res:Strings.SubTabExtended}">
+            <StackPanel Spacing="14" Margin="12">
+                <StackPanel Spacing="4">
+                    <TextBlock Text="{x:Static res:Strings.SectionViModeCursor}" FontSize="18" FontWeight="Bold" Margin="6,0" />
+                    <ItemsControl ItemsSource="{Binding ViModeCursorColors}" ItemTemplate="{StaticResource ColorSwatchTemplate}">
+                        <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </StackPanel>
+                <StackPanel Spacing="4">
+                    <TextBlock Text="{x:Static res:Strings.SectionHintsColors}" FontSize="18" FontWeight="Bold" Margin="6,0" />
+                    <ItemsControl ItemsSource="{Binding HintsColors}" ItemTemplate="{StaticResource ColorSwatchTemplate}">
+                        <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </StackPanel>
+                <StackPanel Spacing="4">
+                    <TextBlock Text="{x:Static res:Strings.SectionLineIndicator}" FontSize="18" FontWeight="Bold" Margin="6,0" />
+                    <ItemsControl ItemsSource="{Binding LineIndicatorColors}" ItemTemplate="{StaticResource ColorSwatchTemplate}">
+                        <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </StackPanel>
+                <StackPanel Spacing="4">
+                    <TextBlock Text="{x:Static res:Strings.SectionDim}" FontSize="18" FontWeight="Bold" Margin="6,0" />
+                    <ItemsControl ItemsSource="{Binding DimColors}" ItemTemplate="{StaticResource ColorSwatchTemplate}">
+                        <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </StackPanel>
+            </StackPanel>
         </TabItem>
     </TabControl>
 </UserControl>

@@ -12,17 +12,23 @@ class Program
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
             "AlacrittyUI", "logs");
 
+        try { Directory.CreateDirectory(logDir); }
+        catch { /* log dir creation failed — file logging may not work */ }
+
         Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Information()
+            .WriteTo.Console(
+                outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}")
             .WriteTo.File(
                 Path.Combine(logDir, "alacrittyui-.log"),
                 rollingInterval: RollingInterval.Day,
-                retainedFileCountLimit: 7)
+                retainedFileCountLimit: 7,
+                outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level:u3}] {SourceContext} {Message:lj}{NewLine}{Exception}")
             .CreateLogger();
 
         try
         {
-            Log.Information("AlacrittyUI starting");
+            Log.Information("AlacrittyUI starting, log directory: {LogDir}", logDir);
             BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
         }
         catch (Exception ex)

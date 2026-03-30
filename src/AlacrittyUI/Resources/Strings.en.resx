@@ -38,6 +38,7 @@
   <data name="TabInfo" xml:space="preserve"><value>Info</value></data>
   <data name="SubTabPalette" xml:space="preserve"><value>Palette</value></data>
   <data name="SubTabSpecial" xml:space="preserve"><value>Special</value></data>
+  <data name="SubTabExtended" xml:space="preserve"><value>Extended</value></data>
   <!-- Section headers -->
   <data name="SectionPrimary" xml:space="preserve"><value>Primary</value></data>
   <data name="SectionNormal" xml:space="preserve"><value>Normal</value></data>
@@ -72,4 +73,158 @@
   <data name="ThemeBuiltIn" xml:space="preserve"><value>Built-in</value></data>
   <data name="ThemeUser" xml:space="preserve"><value>User Themes</value></data>
   <data name="ThemeNamePrompt" xml:space="preserve"><value>Theme name:</value></data>
+  <!-- Tabs (new) -->
+  <data name="TabFont" xml:space="preserve"><value>Font</value></data>
+  <data name="TabWindow" xml:space="preserve"><value>Window</value></data>
+  <data name="TabCursor" xml:space="preserve"><value>Cursor</value></data>
+  <data name="TabTerminal" xml:space="preserve"><value>Terminal</value></data>
+  <!-- Font -->
+  <data name="FontTabMain" xml:space="preserve"><value>Font &amp; Size</value></data>
+  <data name="FontTabSpacing" xml:space="preserve"><value>Spacing</value></data>
+  <data name="FontFamilies" xml:space="preserve"><value>Font Families</value></data>
+  <data name="FontSize" xml:space="preserve"><value>Font Size</value></data>
+  <data name="FontNormal" xml:space="preserve"><value>Normal Font</value></data>
+  <data name="FontBold" xml:space="preserve"><value>Bold</value></data>
+  <data name="FontItalic" xml:space="preserve"><value>Italic</value></data>
+  <data name="FontBoldItalic" xml:space="preserve"><value>Bold Italic</value></data>
+  <data name="FontOffset" xml:space="preserve"><value>Character Offset</value></data>
+  <data name="FontGlyphOffset" xml:space="preserve"><value>Glyph Offset</value></data>
+  <data name="FontBuiltinBoxDrawing" xml:space="preserve"><value>Use built-in box drawing characters</value></data>
+  <!-- Window -->
+  <data name="WindowTabLayout" xml:space="preserve"><value>Layout</value></data>
+  <data name="WindowTabAppearance" xml:space="preserve"><value>Appearance</value></data>
+  <data name="WindowDimensions" xml:space="preserve"><value>Window Size</value></data>
+  <data name="WindowDimensionsHint" xml:space="preserve"><value>0 = determined automatically by the system</value></data>
+  <data name="WindowColumns" xml:space="preserve"><value>Columns</value></data>
+  <data name="WindowLines" xml:space="preserve"><value>Lines</value></data>
+  <data name="WindowDynamicPadding" xml:space="preserve"><value>Dynamic Padding</value></data>
+  <data name="WindowOpacity" xml:space="preserve"><value>Opacity</value></data>
+  <data name="WindowBlur" xml:space="preserve"><value>Background Blur</value></data>
+  <data name="WindowDecorations" xml:space="preserve"><value>Window Decorations</value></data>
+  <data name="WindowStartupMode" xml:space="preserve"><value>Startup Mode</value></data>
+  <data name="WindowTitle" xml:space="preserve"><value>Window Title</value></data>
+  <data name="WindowDynamicTitle" xml:space="preserve"><value>Dynamic Title</value></data>
+  <data name="WindowResizeIncrements" xml:space="preserve"><value>Resize in character increments</value></data>
+  <!-- Cursor -->
+  <data name="CursorShape" xml:space="preserve"><value>Cursor Shape</value></data>
+  <data name="CursorBlinking" xml:space="preserve"><value>Blinking</value></data>
+  <data name="CursorBlinkInterval" xml:space="preserve"><value>Blink Interval</value></data>
+  <data name="CursorBlinkTimeout" xml:space="preserve"><value>Blink Timeout</value></data>
+  <data name="CursorBlinkTimeoutHint" xml:space="preserve"><value>Seconds until blinking stops (0 = never stop)</value></data>
+  <data name="CursorThickness" xml:space="preserve"><value>Cursor Thickness</value></data>
+  <data name="CursorUnfocusedHollow" xml:space="preserve"><value>Hollow cursor when window is unfocused</value></data>
+  <data name="CursorViModeStyle" xml:space="preserve"><value>Vi Mode Cursor Style</value></data>
+  <!-- Terminal -->
+  <data name="TermScrolling" xml:space="preserve"><value>Scrolling</value></data>
+  <data name="TermHistory" xml:space="preserve"><value>History (lines)</value></data>
+  <data name="TermMultiplier" xml:space="preserve"><value>Multiplier</value></data>
+  <data name="TermShellHint" xml:space="preserve"><value>Leave empty for system default</value></data>
+  <data name="TermProgram" xml:space="preserve"><value>Program</value></data>
+  <data name="TermArgs" xml:space="preserve"><value>Arguments</value></data>
+  <data name="TermSelection" xml:space="preserve"><value>Selection</value></data>
+  <data name="TermSaveToClipboard" xml:space="preserve"><value>Automatically copy selection to clipboard</value></data>
+  <data name="TermMouse" xml:space="preserve"><value>Mouse</value></data>
+  <data name="TermHideMouseWhenTyping" xml:space="preserve"><value>Hide mouse cursor when typing</value></data>
+  <data name="TermBell" xml:space="preserve"><value>Bell</value></data>
+  <data name="TermBellAnimation" xml:space="preserve"><value>Animation</value></data>
+  <data name="TermBellDuration" xml:space="preserve"><value>Duration (ms)</value></data>
+  <data name="TermGeneral" xml:space="preserve"><value>General</value></data>
+  <data name="TermTabBellImport" xml:space="preserve"><value>Bell &amp; Import</value></data>
+  <data name="TermLiveReload" xml:space="preserve"><value>Automatically reload config on changes</value></data>
+  <data name="TermIpcSocket" xml:space="preserve"><value>Enable IPC socket</value></data>
+  <data name="TermWorkingDir" xml:space="preserve"><value>Working Directory</value></data>
+  <data name="TermImport" xml:space="preserve"><value>Import Paths</value></data>
+  <data name="TermImportHint" xml:space="preserve"><value>One path per line (config files to import)</value></data>
+  <!-- Window (new) -->
+  <data name="WindowLevel" xml:space="preserve"><value>Window Level</value></data>
+  <data name="WindowThemeVariant" xml:space="preserve"><value>Decorations Theme</value></data>
+  <data name="WindowOptionAsAlt" xml:space="preserve"><value>Option Key as Alt</value></data>
+  <data name="WindowPosition" xml:space="preserve"><value>Window Position</value></data>
+  <data name="WindowSetPosition" xml:space="preserve"><value>Use fixed position</value></data>
+  <data name="WindowClass" xml:space="preserve"><value>Window Class</value></data>
+  <!-- Cursor (new) -->
+  <data name="CursorViModeEnabled" xml:space="preserve"><value>Use custom Vi mode cursor</value></data>
+  <!-- Tabs (Phase 3) -->
+  <data name="TabHints" xml:space="preserve"><value>Hints</value></data>
+  <data name="TabKeyboard" xml:space="preserve"><value>Keyboard</value></data>
+  <data name="TabDebug" xml:space="preserve"><value>Debug</value></data>
+  <!-- Hints -->
+  <data name="HintsAlphabet" xml:space="preserve"><value>Hint Alphabet</value></data>
+  <!-- Buttons -->
+  <data name="ButtonAdd" xml:space="preserve"><value>Add</value></data>
+  <data name="ButtonRemove" xml:space="preserve"><value>Remove</value></data>
+  <!-- Color sections -->
+  <data name="SectionViModeCursor" xml:space="preserve"><value>Vi Mode Cursor</value></data>
+  <data name="SectionHintsColors" xml:space="preserve"><value>Hint Colors</value></data>
+  <data name="SectionLineIndicator" xml:space="preserve"><value>Line Indicator</value></data>
+  <data name="SectionDim" xml:space="preserve"><value>Dim</value></data>
+  <!-- Debug -->
+  <data name="DebugWarning" xml:space="preserve"><value>These options are for developers and debugging only. Changes may affect rendering performance.</value></data>
+  <data name="DebugRenderTimer" xml:space="preserve"><value>Show render timer</value></data>
+  <data name="DebugPersistentLogging" xml:space="preserve"><value>Persistent logging</value></data>
+  <data name="DebugPrintEvents" xml:space="preserve"><value>Print events</value></data>
+  <data name="DebugHighlightDamage" xml:space="preserve"><value>Highlight damaged areas</value></data>
+  <data name="DebugPreferEgl" xml:space="preserve"><value>Prefer EGL</value></data>
+  <data name="DebugLogLevel" xml:space="preserve"><value>Log Level</value></data>
+  <data name="DebugRenderer" xml:space="preserve"><value>Renderer</value></data>
+  <!-- Status errors -->
+  <data name="StatusLoadError" xml:space="preserve"><value>Failed to load configuration</value></data>
+  <data name="StatusSaveError" xml:space="preserve"><value>Failed to save configuration</value></data>
+  <data name="StatusThemeError" xml:space="preserve"><value>Theme operation failed</value></data>
+  <!-- Shared labels -->
+  <data name="LabelFamily" xml:space="preserve"><value>Family</value></data>
+  <data name="LabelStyle" xml:space="preserve"><value>Style</value></data>
+  <data name="LabelPadding" xml:space="preserve"><value>Padding</value></data>
+  <data name="LabelWebsite" xml:space="preserve"><value>Website</value></data>
+  <data name="LabelRepository" xml:space="preserve"><value>Repository</value></data>
+  <data name="LabelShell" xml:space="preserve"><value>Shell</value></data>
+  <data name="LabelCommand" xml:space="preserve"><value>Command</value></data>
+  <data name="LabelRegex" xml:space="preserve"><value>Regex</value></data>
+  <data name="LabelAction" xml:space="preserve"><value>Action</value></data>
+  <data name="LabelKey" xml:space="preserve"><value>Key</value></data>
+  <data name="LabelMods" xml:space="preserve"><value>Modifiers</value></data>
+  <data name="LabelMode" xml:space="preserve"><value>Mode</value></data>
+  <data name="LabelChars" xml:space="preserve"><value>Chars</value></data>
+  <data name="LabelHyperlinks" xml:space="preserve"><value>Hyperlinks</value></data>
+  <data name="LabelPostProcessing" xml:space="preserve"><value>Post Processing</value></data>
+  <data name="LabelPersist" xml:space="preserve"><value>Persist</value></data>
+  <data name="LabelMouseEnabled" xml:space="preserve"><value>Mouse Enabled</value></data>
+  <data name="LabelMouseMods" xml:space="preserve"><value>Mouse Modifiers</value></data>
+  <data name="LabelBinding" xml:space="preserve"><value>Binding</value></data>
+  <data name="LabelOsc52" xml:space="preserve"><value>OSC 52 Clipboard</value></data>
+  <data name="LabelMacOsOnly" xml:space="preserve"><value>(macOS only)</value></data>
+  <data name="LabelLinuxBsdOnly" xml:space="preserve"><value>(Linux/BSD only)</value></data>
+  <data name="LabelInstance" xml:space="preserve"><value>Instance</value></data>
+  <data name="LabelGeneral" xml:space="preserve"><value>General</value></data>
+  <!-- Dialogs -->
+  <data name="DialogOpenConfig" xml:space="preserve"><value>Open Alacritty Config</value></data>
+  <data name="DialogImportTheme" xml:space="preserve"><value>Import Theme</value></data>
+  <data name="DialogExportTheme" xml:space="preserve"><value>Export Theme</value></data>
+  <!-- Unsaved changes -->
+  <data name="UnsavedTitle" xml:space="preserve"><value>Unsaved Changes</value></data>
+  <data name="UnsavedMessage" xml:space="preserve"><value>You have unsaved changes. Would you like to save them first?</value></data>
+  <data name="ButtonDiscard" xml:space="preserve"><value>Discard</value></data>
+  <!-- Reset -->
+  <data name="ButtonReset" xml:space="preserve"><value>Reset</value></data>
+  <data name="ResetTitle" xml:space="preserve"><value>Reset to defaults</value></data>
+  <data name="ResetMessage" xml:space="preserve"><value>All settings will be reset to Alacritty defaults. Unsaved changes will be lost.</value></data>
+  <data name="ButtonCancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="ButtonContinue" xml:space="preserve"><value>Continue</value></data>
+  <data name="StatusReset" xml:space="preserve"><value>Settings reset to defaults</value></data>
+  <!-- Header -->
+  <data name="LabelConfig" xml:space="preserve"><value>Configuration:</value></data>
+  <!-- Color labels -->
+  <data name="ColorForeground" xml:space="preserve"><value>Foreground</value></data>
+  <data name="ColorBackground" xml:space="preserve"><value>Background</value></data>
+  <data name="ColorDimForeground" xml:space="preserve"><value>Dim Foreground</value></data>
+  <data name="ColorBrightForeground" xml:space="preserve"><value>Bright Foreground</value></data>
+  <data name="ColorText" xml:space="preserve"><value>Text</value></data>
+  <data name="ColorMatchFg" xml:space="preserve"><value>Match FG</value></data>
+  <data name="ColorMatchBg" xml:space="preserve"><value>Match BG</value></data>
+  <data name="ColorFocusedFg" xml:space="preserve"><value>Focused FG</value></data>
+  <data name="ColorFocusedBg" xml:space="preserve"><value>Focused BG</value></data>
+  <data name="ColorStartFg" xml:space="preserve"><value>Start FG</value></data>
+  <data name="ColorStartBg" xml:space="preserve"><value>Start BG</value></data>
+  <data name="ColorEndFg" xml:space="preserve"><value>End FG</value></data>
+  <data name="ColorEndBg" xml:space="preserve"><value>End BG</value></data>
 </root>

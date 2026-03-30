@@ -1,0 +1,85 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:AlacrittyUI.ViewModels"
+             xmlns:res="clr-namespace:AlacrittyUI.Resources"
+             mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="500"
+             x:Class="AlacrittyUI.Views.TerminalView"
+             x:DataType="vm:TerminalViewModel">
+
+    <TabControl TabStripPlacement="Top" Padding="12" FontSize="15">
+        <!-- Tab 1: Shell + Scrolling + General -->
+        <TabItem Header="{x:Static res:Strings.TermGeneral}">
+            <StackPanel Spacing="16" Margin="16">
+                <!-- Shell -->
+                <Grid ColumnDefinitions="120,*" RowDefinitions="Auto,Auto" RowSpacing="8">
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Static res:Strings.TermProgram}" VerticalAlignment="Center" />
+                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding ShellProgram}"
+                             Watermark="/bin/bash" FontFamily="Consolas,Menlo,monospace" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Static res:Strings.TermArgs}" VerticalAlignment="Center" />
+                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ShellArgs}"
+                             Watermark="--login" FontFamily="Consolas,Menlo,monospace" />
+                </Grid>
+                <TextBlock Text="{x:Static res:Strings.TermShellHint}" FontSize="12" Opacity="0.5" Margin="0,-8,0,0" />
+
+                <!-- Scrolling -->
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="20">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8">
+                        <TextBlock Text="{x:Static res:Strings.TermHistory}" VerticalAlignment="Center" />
+                        <NumericUpDown Grid.Column="1" Value="{Binding ScrollingHistory}"
+                                       Minimum="0" Maximum="100000" Increment="1000" MinWidth="140" />
+                    </Grid>
+                    <Grid Grid.Column="1" ColumnDefinitions="Auto,*" ColumnSpacing="8">
+                        <TextBlock Text="{x:Static res:Strings.TermMultiplier}" VerticalAlignment="Center" />
+                        <NumericUpDown Grid.Column="1" Value="{Binding ScrollingMultiplier}"
+                                       Minimum="1" Maximum="20" MinWidth="140" />
+                    </Grid>
+                </Grid>
+
+                <!-- OSC 52 -->
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                    <TextBlock Text="{x:Static res:Strings.LabelOsc52}" VerticalAlignment="Center" />
+                    <ComboBox Grid.Column="1" ItemsSource="{Binding Osc52Options}" SelectedItem="{Binding Osc52}" MinWidth="180" />
+                </Grid>
+
+                <!-- Checkboxes -->
+                <CheckBox Content="{x:Static res:Strings.TermSaveToClipboard}" IsChecked="{Binding SaveToClipboard}" />
+                <CheckBox Content="{x:Static res:Strings.TermHideMouseWhenTyping}" IsChecked="{Binding HideMouseWhenTyping}" />
+                <CheckBox Content="{x:Static res:Strings.TermLiveReload}" IsChecked="{Binding LiveConfigReload}" />
+                <CheckBox Content="{x:Static res:Strings.TermIpcSocket}" IsChecked="{Binding IpcSocket}" />
+            </StackPanel>
+        </TabItem>
+
+        <!-- Tab 2: Bell + Import -->
+        <TabItem Header="{x:Static res:Strings.TermTabBellImport}">
+            <StackPanel Spacing="16" Margin="16">
+                <!-- Bell -->
+                <TextBlock Text="{x:Static res:Strings.TermBell}" FontSize="18" FontWeight="Bold" />
+                <Grid ColumnDefinitions="150,*" RowDefinitions="Auto,Auto,Auto" RowSpacing="8">
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Static res:Strings.TermBellAnimation}" VerticalAlignment="Center" />
+                    <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding BellAnimationOptions}"
+                              SelectedItem="{Binding BellAnimation}" MinWidth="180" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Static res:Strings.TermBellDuration}" VerticalAlignment="Center" />
+                    <NumericUpDown Grid.Row="1" Grid.Column="1" Value="{Binding BellDuration}"
+                                   Minimum="0" Maximum="5000" Increment="50" MinWidth="140" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{x:Static res:Strings.LabelCommand}" VerticalAlignment="Center" />
+                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding BellCommand}" FontFamily="Consolas,Menlo,monospace" />
+                </Grid>
+
+                <!-- Working directory -->
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12" Margin="0,8,0,0">
+                    <TextBlock Text="{x:Static res:Strings.TermWorkingDir}" VerticalAlignment="Center" FontWeight="SemiBold" />
+                    <TextBox Grid.Column="1" Text="{Binding WorkingDirectory}" FontFamily="Consolas,Menlo,monospace" />
+                </Grid>
+
+                <!-- Import paths -->
+                <StackPanel Spacing="4">
+                    <TextBlock Text="{x:Static res:Strings.TermImport}" FontWeight="SemiBold" />
+                    <TextBlock Text="{x:Static res:Strings.TermImportHint}" FontSize="12" Opacity="0.5" />
+                    <TextBox Text="{Binding ImportPaths}" Height="100" AcceptsReturn="True" FontFamily="Consolas,Menlo,monospace" />
+                </StackPanel>
+            </StackPanel>
+        </TabItem>
+    </TabControl>
+</UserControl>

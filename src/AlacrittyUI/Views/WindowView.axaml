@@ -1,0 +1,111 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:AlacrittyUI.ViewModels"
+             xmlns:res="clr-namespace:AlacrittyUI.Resources"
+             mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="500"
+             x:Class="AlacrittyUI.Views.WindowView"
+             x:DataType="vm:WindowViewModel">
+
+    <TabControl TabStripPlacement="Top" Padding="12" FontSize="15">
+        <!-- Tab 1: Layout -->
+        <TabItem Header="{x:Static res:Strings.WindowTabLayout}">
+            <StackPanel Spacing="16" Margin="16">
+                <!-- Dimensions -->
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="20">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8">
+                        <TextBlock Text="{x:Static res:Strings.WindowColumns}" VerticalAlignment="Center" />
+                        <NumericUpDown Grid.Column="1" Value="{Binding Columns}" Minimum="0" Maximum="500" MinWidth="130" />
+                    </Grid>
+                    <Grid Grid.Column="1" ColumnDefinitions="Auto,*" ColumnSpacing="8">
+                        <TextBlock Text="{x:Static res:Strings.WindowLines}" VerticalAlignment="Center" />
+                        <NumericUpDown Grid.Column="1" Value="{Binding Lines}" Minimum="0" Maximum="500" MinWidth="130" />
+                    </Grid>
+                </Grid>
+                <TextBlock Text="{x:Static res:Strings.WindowDimensionsHint}" FontSize="12" Opacity="0.5" Margin="0,-8,0,0" />
+
+                <!-- Padding -->
+                <Grid ColumnDefinitions="Auto,*,*" ColumnSpacing="12">
+                    <TextBlock Text="{x:Static res:Strings.LabelPadding}" VerticalAlignment="Center" FontWeight="SemiBold" />
+                    <Grid Grid.Column="1" ColumnDefinitions="20,*" ColumnSpacing="6">
+                        <TextBlock Text="X" VerticalAlignment="Center" />
+                        <NumericUpDown Grid.Column="1" Value="{Binding PaddingX}" Minimum="0" Maximum="100" />
+                    </Grid>
+                    <Grid Grid.Column="2" ColumnDefinitions="20,*" ColumnSpacing="6">
+                        <TextBlock Text="Y" VerticalAlignment="Center" />
+                        <NumericUpDown Grid.Column="1" Value="{Binding PaddingY}" Minimum="0" Maximum="100" />
+                    </Grid>
+                </Grid>
+                <CheckBox Content="{x:Static res:Strings.WindowDynamicPadding}" IsChecked="{Binding DynamicPadding}" />
+
+                <!-- Opacity -->
+                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                    <TextBlock Text="{x:Static res:Strings.WindowOpacity}" VerticalAlignment="Center" FontWeight="SemiBold" />
+                    <Slider Grid.Column="1" Value="{Binding Opacity}" Minimum="0" Maximum="1"
+                            TickFrequency="0.05" IsSnapToTickEnabled="True" />
+                    <TextBlock Grid.Column="2" Text="{Binding Opacity, StringFormat='{}{0:P0}'}" VerticalAlignment="Center" />
+                </Grid>
+
+                <!-- Title -->
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                    <TextBlock Text="{x:Static res:Strings.WindowTitle}" VerticalAlignment="Center" FontWeight="SemiBold" />
+                    <TextBox Grid.Column="1" Text="{Binding Title}" />
+                </Grid>
+                <CheckBox Content="{x:Static res:Strings.WindowDynamicTitle}" IsChecked="{Binding DynamicTitle}" />
+                <CheckBox Content="{x:Static res:Strings.WindowBlur}" IsChecked="{Binding Blur}" />
+                <CheckBox Content="{x:Static res:Strings.WindowResizeIncrements}" IsChecked="{Binding ResizeIncrements}" />
+            </StackPanel>
+        </TabItem>
+
+        <!-- Tab 2: Appearance + Platform -->
+        <TabItem Header="{x:Static res:Strings.WindowTabAppearance}">
+            <StackPanel Spacing="16" Margin="16">
+                <Grid ColumnDefinitions="180,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="10">
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Static res:Strings.WindowDecorations}" VerticalAlignment="Center" />
+                    <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding DecorationOptions}" SelectedItem="{Binding Decorations}" MinWidth="180" />
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Static res:Strings.WindowStartupMode}" VerticalAlignment="Center" />
+                    <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding StartupModeOptions}" SelectedItem="{Binding StartupMode}" MinWidth="180" />
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{x:Static res:Strings.WindowLevel}" VerticalAlignment="Center" />
+                    <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding LevelOptions}" SelectedItem="{Binding Level}" MinWidth="180" />
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="{x:Static res:Strings.WindowThemeVariant}" VerticalAlignment="Center" />
+                    <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding ThemeVariantOptions}" SelectedItem="{Binding DecorationsThemeVariant}" MinWidth="180" />
+
+                    <TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center">
+                        <Run Text="{x:Static res:Strings.WindowOptionAsAlt}" />
+                        <Run Text=" " /><Run Text="{x:Static res:Strings.LabelMacOsOnly}" Foreground="Gray" />
+                    </TextBlock>
+                    <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding OptionAsAltOptions}" SelectedItem="{Binding OptionAsAlt}" MinWidth="180" />
+                </Grid>
+
+                <!-- Position -->
+                <CheckBox Content="{x:Static res:Strings.WindowSetPosition}" IsChecked="{Binding HasPosition}" />
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="20" IsEnabled="{Binding HasPosition}">
+                    <Grid ColumnDefinitions="20,*" ColumnSpacing="6">
+                        <TextBlock Text="X" VerticalAlignment="Center" />
+                        <NumericUpDown Grid.Column="1" Value="{Binding PositionX}" />
+                    </Grid>
+                    <Grid Grid.Column="1" ColumnDefinitions="20,*" ColumnSpacing="6">
+                        <TextBlock Text="Y" VerticalAlignment="Center" />
+                        <NumericUpDown Grid.Column="1" Value="{Binding PositionY}" />
+                    </Grid>
+                </Grid>
+
+                <!-- Window Class -->
+                <TextBlock FontWeight="SemiBold">
+                    <Run Text="{x:Static res:Strings.WindowClass}" />
+                    <Run Text=" " /><Run Text="{x:Static res:Strings.LabelLinuxBsdOnly}" Foreground="Gray" />
+                </TextBlock>
+                <Grid ColumnDefinitions="100,*,100,*" ColumnSpacing="8">
+                    <TextBlock Text="{x:Static res:Strings.LabelInstance}" VerticalAlignment="Center" />
+                    <TextBox Grid.Column="1" Text="{Binding ClassInstance}" />
+                    <TextBlock Grid.Column="2" Text="{x:Static res:Strings.LabelGeneral}" VerticalAlignment="Center" Margin="8,0,0,0" />
+                    <TextBox Grid.Column="3" Text="{Binding ClassGeneral}" />
+                </Grid>
+            </StackPanel>
+        </TabItem>
+    </TabControl>
+</UserControl>

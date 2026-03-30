@@ -1,0 +1,80 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:AlacrittyUI.ViewModels"
+             xmlns:res="clr-namespace:AlacrittyUI.Resources"
+             mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="500"
+             x:Class="AlacrittyUI.Views.CursorView"
+             x:DataType="vm:CursorViewModel">
+
+    <StackPanel Spacing="24" Margin="20">
+
+            <!-- Shape -->
+            <StackPanel Spacing="4">
+                <TextBlock Text="{x:Static res:Strings.CursorShape}" FontSize="20" FontWeight="Bold" />
+                <ComboBox ItemsSource="{Binding ShapeOptions}"
+                          SelectedItem="{Binding Shape}" MinWidth="180" />
+            </StackPanel>
+
+            <!-- Blinking -->
+            <StackPanel Spacing="4">
+                <TextBlock Text="{x:Static res:Strings.CursorBlinking}" FontSize="20" FontWeight="Bold" />
+                <ComboBox ItemsSource="{Binding BlinkingOptions}"
+                          SelectedItem="{Binding Blinking}" MinWidth="180" />
+            </StackPanel>
+
+            <!-- Blink interval -->
+            <StackPanel Spacing="4">
+                <TextBlock Text="{x:Static res:Strings.CursorBlinkInterval}" FontSize="17" FontWeight="SemiBold" />
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                    <Slider Value="{Binding BlinkInterval}" Minimum="100" Maximum="2000"
+                            TickFrequency="50" IsSnapToTickEnabled="True" />
+                    <TextBlock Grid.Column="1" Text="{Binding BlinkInterval, StringFormat='{}{0} ms'}"
+                               VerticalAlignment="Center" />
+                </Grid>
+            </StackPanel>
+
+            <!-- Blink timeout -->
+            <StackPanel Spacing="4">
+                <TextBlock Text="{x:Static res:Strings.CursorBlinkTimeout}" FontSize="17" FontWeight="SemiBold" />
+                <TextBlock Text="{x:Static res:Strings.CursorBlinkTimeoutHint}" FontSize="12" Opacity="0.6" />
+                <NumericUpDown Value="{Binding BlinkTimeout}" Minimum="0" Maximum="60" MinWidth="130" />
+            </StackPanel>
+
+            <!-- Thickness -->
+            <StackPanel Spacing="4">
+                <TextBlock Text="{x:Static res:Strings.CursorThickness}" FontSize="17" FontWeight="SemiBold" />
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                    <Slider Value="{Binding Thickness}" Minimum="0.05" Maximum="1.0"
+                            TickFrequency="0.05" IsSnapToTickEnabled="True" />
+                    <TextBlock Grid.Column="1" Text="{Binding Thickness, StringFormat='{}{0:F2}'}"
+                               VerticalAlignment="Center" />
+                </Grid>
+            </StackPanel>
+
+            <!-- Unfocused hollow -->
+            <CheckBox Content="{x:Static res:Strings.CursorUnfocusedHollow}"
+                      IsChecked="{Binding UnfocusedHollow}" />
+
+            <!-- Vi mode style -->
+            <StackPanel Spacing="4">
+                <TextBlock Text="{x:Static res:Strings.CursorViModeStyle}" FontSize="17" FontWeight="SemiBold" />
+                <CheckBox Content="{x:Static res:Strings.CursorViModeEnabled}"
+                          IsChecked="{Binding ViModeEnabled}" />
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="20"
+                      IsEnabled="{Binding ViModeEnabled}">
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="{x:Static res:Strings.CursorShape}" FontSize="12" />
+                        <ComboBox ItemsSource="{Binding ShapeOptions}"
+                                  SelectedItem="{Binding ViModeShape}" MinWidth="180" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Spacing="4">
+                        <TextBlock Text="{x:Static res:Strings.CursorBlinking}" FontSize="12" />
+                        <ComboBox ItemsSource="{Binding BlinkingOptions}"
+                                  SelectedItem="{Binding ViModeBlinking}" MinWidth="180" />
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+    </StackPanel>
+</UserControl>

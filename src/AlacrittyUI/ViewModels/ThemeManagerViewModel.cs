@@ -57,6 +57,7 @@ public partial class ThemeManagerViewModel : ObservableObject
         catch (Exception ex)
         {
             Logger.Error(ex, "Failed to apply theme {Name}", SelectedTheme.Name);
+            _mainVm.StatusText = Strings.StatusThemeError;
         }
     }
 
@@ -78,6 +79,7 @@ public partial class ThemeManagerViewModel : ObservableObject
         catch (Exception ex)
         {
             Logger.Error(ex, "Failed to save theme");
+            _mainVm.StatusText = Strings.StatusThemeError;
         }
     }
 
@@ -95,6 +97,7 @@ public partial class ThemeManagerViewModel : ObservableObject
         catch (Exception ex)
         {
             Logger.Error(ex, "Failed to delete theme");
+            _mainVm.StatusText = Strings.StatusThemeError;
         }
     }
 
@@ -109,6 +112,7 @@ public partial class ThemeManagerViewModel : ObservableObject
         catch (Exception ex)
         {
             Logger.Error(ex, "Failed to import theme from {Path}", path);
+            _mainVm.StatusText = Strings.StatusThemeError;
         }
     }
 
@@ -124,6 +128,7 @@ public partial class ThemeManagerViewModel : ObservableObject
         catch (Exception ex)
         {
             Logger.Error(ex, "Failed to export theme to {Path}", path);
+            _mainVm.StatusText = Strings.StatusThemeError;
         }
     }
 }

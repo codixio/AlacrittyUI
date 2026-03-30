@@ -40,7 +40,7 @@
 
                     <!-- Website -->
                     <TextBlock Grid.Row="1" Grid.Column="0"
-                               Text="Website" FontWeight="SemiBold" Margin="0,4" />
+                               Text="{x:Static res:Strings.LabelWebsite}" FontWeight="SemiBold" Margin="0,4" />
                     <TextBlock Grid.Row="1" Grid.Column="1" Margin="0,4"
                                Cursor="Hand">
                         <Underline>
@@ -50,7 +50,7 @@
 
                     <!-- Repo -->
                     <TextBlock Grid.Row="2" Grid.Column="0"
-                               Text="Repository" FontWeight="SemiBold" Margin="0,4" />
+                               Text="{x:Static res:Strings.LabelRepository}" FontWeight="SemiBold" Margin="0,4" />
                     <TextBlock Grid.Row="2" Grid.Column="1" Margin="0,4"
                                Cursor="Hand">
                         <Underline>

@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using AlacrittyUI.Models;
+using AlacrittyUI.Resources;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace AlacrittyUI.ViewModels;
@@ -13,6 +14,10 @@ public partial class ColorEditorViewModel : ObservableObject
     public ObservableCollection<ColorEntry> SelectionColors { get; } = [];
     public ObservableCollection<ColorEntry> SearchColors { get; } = [];
     public ObservableCollection<ColorEntry> FooterColors { get; } = [];
+    public ObservableCollection<ColorEntry> ViModeCursorColors { get; } = [];
+    public ObservableCollection<ColorEntry> HintsColors { get; } = [];
+    public ObservableCollection<ColorEntry> LineIndicatorColors { get; } = [];
+    public ObservableCollection<ColorEntry> DimColors { get; } = [];
 
     [ObservableProperty]
     private bool _drawBoldTextWithBrightColors;
@@ -23,12 +28,12 @@ public partial class ColorEditorViewModel : ObservableObject
     public void LoadFromPalette(ColorPalette p)
     {
         PrimaryColors.Clear();
-        PrimaryColors.Add(new ColorEntry("Foreground", p.Foreground, "foreground"));
-        PrimaryColors.Add(new ColorEntry("Background", p.Background, "background"));
+        PrimaryColors.Add(new ColorEntry(Strings.ColorForeground, p.Foreground, "foreground"));
+        PrimaryColors.Add(new ColorEntry(Strings.ColorBackground, p.Background, "background"));
         if (p.DimForeground != null)
-            PrimaryColors.Add(new ColorEntry("Dim Foreground", p.DimForeground, "dim_foreground"));
+            PrimaryColors.Add(new ColorEntry(Strings.ColorDimForeground, p.DimForeground, "dim_foreground"));
         if (p.BrightForeground != null)
-            PrimaryColors.Add(new ColorEntry("Bright Foreground", p.BrightForeground, "bright_foreground"));
+            PrimaryColors.Add(new ColorEntry(Strings.ColorBrightForeground, p.BrightForeground, "bright_foreground"));
 
         NormalColors.Clear();
         NormalColors.Add(new ColorEntry("Black", p.NormalBlack, "normal.black"));
@@ -51,22 +56,46 @@ public partial class ColorEditorViewModel : ObservableObject
         BrightColors.Add(new ColorEntry("White", p.BrightWhite, "bright.white"));
 
         CursorColors.Clear();
-        CursorColors.Add(new ColorEntry("Text", p.CursorText ?? "#181818", "cursor.text"));
+        CursorColors.Add(new ColorEntry(Strings.ColorText, p.CursorText ?? "#181818", "cursor.text"));
         CursorColors.Add(new ColorEntry("Cursor", p.CursorColor ?? "#d8d8d8", "cursor.cursor"));
 
         SelectionColors.Clear();
-        SelectionColors.Add(new ColorEntry("Text", p.SelectionText ?? "#181818", "selection.text"));
-        SelectionColors.Add(new ColorEntry("Background", p.SelectionBackground ?? "#d8d8d8", "selection.background"));
+        SelectionColors.Add(new ColorEntry(Strings.ColorText, p.SelectionText ?? "#181818", "selection.text"));
+        SelectionColors.Add(new ColorEntry(Strings.ColorBackground, p.SelectionBackground ?? "#d8d8d8", "selection.background"));
 
         SearchColors.Clear();
-        SearchColors.Add(new ColorEntry("Match FG", p.SearchMatchForeground ?? "#181818", "search.matches.fg"));
-        SearchColors.Add(new ColorEntry("Match BG", p.SearchMatchBackground ?? "#ac4242", "search.matches.bg"));
-        SearchColors.Add(new ColorEntry("Focused FG", p.SearchFocusedForeground ?? "#181818", "search.focused.fg"));
-        SearchColors.Add(new ColorEntry("Focused BG", p.SearchFocusedBackground ?? "#f4bf75", "search.focused.bg"));
+        SearchColors.Add(new ColorEntry(Strings.ColorMatchFg, p.SearchMatchForeground ?? "#181818", "search.matches.fg"));
+        SearchColors.Add(new ColorEntry(Strings.ColorMatchBg, p.SearchMatchBackground ?? "#ac4242", "search.matches.bg"));
+        SearchColors.Add(new ColorEntry(Strings.ColorFocusedFg, p.SearchFocusedForeground ?? "#181818", "search.focused.fg"));
+        SearchColors.Add(new ColorEntry(Strings.ColorFocusedBg, p.SearchFocusedBackground ?? "#f4bf75", "search.focused.bg"));
 
         FooterColors.Clear();
-        FooterColors.Add(new ColorEntry("Foreground", p.FooterBarForeground ?? "#181818", "footer.fg"));
-        FooterColors.Add(new ColorEntry("Background", p.FooterBarBackground ?? "#d8d8d8", "footer.bg"));
+        FooterColors.Add(new ColorEntry(Strings.ColorForeground, p.FooterBarForeground ?? "#181818", "footer.fg"));
+        FooterColors.Add(new ColorEntry(Strings.ColorBackground, p.FooterBarBackground ?? "#d8d8d8", "footer.bg"));
+
+        ViModeCursorColors.Clear();
+        ViModeCursorColors.Add(new ColorEntry(Strings.ColorText, p.ViModeCursorText ?? "#181818", "vi_cursor.text"));
+        ViModeCursorColors.Add(new ColorEntry("Cursor", p.ViModeCursorColor ?? "#d8d8d8", "vi_cursor.cursor"));
+
+        HintsColors.Clear();
+        HintsColors.Add(new ColorEntry(Strings.ColorStartFg, p.HintsStartForeground ?? "#181818", "hints.start.fg"));
+        HintsColors.Add(new ColorEntry(Strings.ColorStartBg, p.HintsStartBackground ?? "#f4bf75", "hints.start.bg"));
+        HintsColors.Add(new ColorEntry(Strings.ColorEndFg, p.HintsEndForeground ?? "#181818", "hints.end.fg"));
+        HintsColors.Add(new ColorEntry(Strings.ColorEndBg, p.HintsEndBackground ?? "#ac4242", "hints.end.bg"));
+
+        LineIndicatorColors.Clear();
+        LineIndicatorColors.Add(new ColorEntry(Strings.ColorForeground, p.LineIndicatorForeground ?? "#ffffff", "line.fg"));
+        LineIndicatorColors.Add(new ColorEntry(Strings.ColorBackground, p.LineIndicatorBackground ?? "#ffffff", "line.bg"));
+
+        DimColors.Clear();
+        DimColors.Add(new ColorEntry("Black", p.DimBlack ?? "#0f0f0f", "dim.black"));
+        DimColors.Add(new ColorEntry("Red", p.DimRed ?? "#712b2b", "dim.red"));
+        DimColors.Add(new ColorEntry("Green", p.DimGreen ?? "#5f6f3a", "dim.green"));
+        DimColors.Add(new ColorEntry("Yellow", p.DimYellow ?? "#a17e4d", "dim.yellow"));
+        DimColors.Add(new ColorEntry("Blue", p.DimBlue ?? "#456877", "dim.blue"));
+        DimColors.Add(new ColorEntry("Magenta", p.DimMagenta ?? "#704d68", "dim.magenta"));
+        DimColors.Add(new ColorEntry("Cyan", p.DimCyan ?? "#4d7770", "dim.cyan"));
+        DimColors.Add(new ColorEntry("White", p.DimWhite ?? "#8e8e8e", "dim.white"));
 
         DrawBoldTextWithBrightColors = p.DrawBoldTextWithBrightColors;
         TransparentBackgroundColors = p.TransparentBackgroundColors;
@@ -127,6 +156,38 @@ public partial class ColorEditorViewModel : ObservableObject
         {
             p.FooterBarForeground = FooterColors[0].HexValue;
             p.FooterBarBackground = FooterColors[1].HexValue;
+        }
+
+        if (ViModeCursorColors.Count == 2)
+        {
+            p.ViModeCursorText = ViModeCursorColors[0].HexValue;
+            p.ViModeCursorColor = ViModeCursorColors[1].HexValue;
+        }
+
+        if (HintsColors.Count == 4)
+        {
+            p.HintsStartForeground = HintsColors[0].HexValue;
+            p.HintsStartBackground = HintsColors[1].HexValue;
+            p.HintsEndForeground = HintsColors[2].HexValue;
+            p.HintsEndBackground = HintsColors[3].HexValue;
+        }
+
+        if (LineIndicatorColors.Count == 2)
+        {
+            p.LineIndicatorForeground = LineIndicatorColors[0].HexValue;
+            p.LineIndicatorBackground = LineIndicatorColors[1].HexValue;
+        }
+
+        if (DimColors.Count == 8)
+        {
+            p.DimBlack = DimColors[0].HexValue;
+            p.DimRed = DimColors[1].HexValue;
+            p.DimGreen = DimColors[2].HexValue;
+            p.DimYellow = DimColors[3].HexValue;
+            p.DimBlue = DimColors[4].HexValue;
+            p.DimMagenta = DimColors[5].HexValue;
+            p.DimCyan = DimColors[6].HexValue;
+            p.DimWhite = DimColors[7].HexValue;
         }
 
         p.DrawBoldTextWithBrightColors = DrawBoldTextWithBrightColors;

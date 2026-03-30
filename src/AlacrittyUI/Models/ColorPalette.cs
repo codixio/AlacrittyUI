@@ -46,6 +46,30 @@ public class ColorPalette
     public string? FooterBarForeground { get; set; }
     public string? FooterBarBackground { get; set; }
 
+    // Vi mode cursor
+    public string? ViModeCursorText { get; set; }
+    public string? ViModeCursorColor { get; set; }
+
+    // Hints
+    public string? HintsStartForeground { get; set; }
+    public string? HintsStartBackground { get; set; }
+    public string? HintsEndForeground { get; set; }
+    public string? HintsEndBackground { get; set; }
+
+    // Line indicator
+    public string? LineIndicatorForeground { get; set; }
+    public string? LineIndicatorBackground { get; set; }
+
+    // Dim (auto-calculated if absent)
+    public string? DimBlack { get; set; }
+    public string? DimRed { get; set; }
+    public string? DimGreen { get; set; }
+    public string? DimYellow { get; set; }
+    public string? DimBlue { get; set; }
+    public string? DimMagenta { get; set; }
+    public string? DimCyan { get; set; }
+    public string? DimWhite { get; set; }
+
     // Flags
     public bool DrawBoldTextWithBrightColors { get; set; }
     public bool TransparentBackgroundColors { get; set; }

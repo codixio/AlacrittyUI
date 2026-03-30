@@ -1,7 +1,9 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
+using AlacrittyUI.Resources;
 using AlacrittyUI.ViewModels;
+using Serilog;
 
 namespace AlacrittyUI.Views;
 
@@ -14,47 +16,61 @@ public partial class ThemeManagerView : UserControl
 
     private async void OnImportClick(object? sender, RoutedEventArgs e)
     {
-        var topLevel = TopLevel.GetTopLevel(this);
-        if (topLevel == null) return;
-
-        var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+        try
         {
-            Title = "Import Theme",
-            AllowMultiple = false,
-            FileTypeFilter =
-            [
-                new FilePickerFileType("TOML") { Patterns = ["*.toml"] }
-            ]
-        });
+            var topLevel = TopLevel.GetTopLevel(this);
+            if (topLevel == null) return;
 
-        if (files.Count > 0 && DataContext is ThemeManagerViewModel vm)
+            var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+            {
+                Title = Strings.DialogImportTheme,
+                AllowMultiple = false,
+                FileTypeFilter =
+                [
+                    new FilePickerFileType("TOML") { Patterns = ["*.toml"] }
+                ]
+            });
+
+            if (files.Count > 0 && DataContext is ThemeManagerViewModel vm)
+            {
+                var path = files[0].TryGetLocalPath();
+                if (path != null)
+                    vm.ImportFromPath(path);
+            }
+        }
+        catch (Exception ex)
         {
-            var path = files[0].TryGetLocalPath();
-            if (path != null)
-                vm.ImportFromPath(path);
+            Log.ForContext<ThemeManagerView>().Error(ex, "Failed to import theme");
         }
     }
 
     private async void OnExportClick(object? sender, RoutedEventArgs e)
     {
-        var topLevel = TopLevel.GetTopLevel(this);
-        if (topLevel == null) return;
-
-        var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+        try
         {
-            Title = "Export Theme",
-            DefaultExtension = "toml",
-            FileTypeChoices =
-            [
-                new FilePickerFileType("TOML") { Patterns = ["*.toml"] }
-            ]
-        });
+            var topLevel = TopLevel.GetTopLevel(this);
+            if (topLevel == null) return;
 
-        if (file != null && DataContext is ThemeManagerViewModel vm)
+            var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+            {
+                Title = Strings.DialogExportTheme,
+                DefaultExtension = "toml",
+                FileTypeChoices =
+                [
+                    new FilePickerFileType("TOML") { Patterns = ["*.toml"] }
+                ]
+            });
+
+            if (file != null && DataContext is ThemeManagerViewModel vm)
+            {
+                var path = file.TryGetLocalPath();
+                if (path != null)
+                    vm.ExportToPath(path);
+            }
+        }
+        catch (Exception ex)
         {
-            var path = file.TryGetLocalPath();
-            if (path != null)
-                vm.ExportToPath(path);
+            Log.ForContext<ThemeManagerView>().Error(ex, "Failed to export theme");
         }
     }
 }

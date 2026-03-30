@@ -11,10 +11,12 @@ public class ThemeService
     private const string BuiltInPrefix = "AlacrittyUI.Assets.BuiltInThemes.";
 
     private readonly ConfigReaderService _reader;
+    private readonly ConfigWriterService _writer;
 
-    public ThemeService(ConfigReaderService reader)
+    public ThemeService(ConfigReaderService reader, ConfigWriterService writer)
     {
         _reader = reader;
+        _writer = writer;
     }
 
     public List<ThemeInfo> GetBuiltInThemes()
@@ -104,10 +106,7 @@ public class ThemeService
 
         var path = Path.Combine(dir, $"{name}.toml");
         var config = new AlacrittyConfig { Colors = palette };
-
-        var writer = new ConfigWriterService();
-        writer.WriteConfig(path, config);
-
+        _writer.WriteConfig(path, config);
         Logger.Information("Theme saved as {Name} at {Path}", name, path);
     }
 
@@ -115,18 +114,25 @@ public class ThemeService
     {
         if (theme.IsBuiltIn) return;
 
-        if (File.Exists(theme.FilePath))
+        try
         {
-            File.Delete(theme.FilePath);
-            Logger.Information("Deleted user theme {Name}", theme.Name);
+            if (File.Exists(theme.FilePath))
+            {
+                File.Delete(theme.FilePath);
+                Logger.Information("Deleted user theme {Name}", theme.Name);
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.Error(ex, "Failed to delete theme {Name} at {Path}", theme.Name, theme.FilePath);
+            throw;
         }
     }
 
     public void ExportTheme(string targetPath, ColorPalette palette)
     {
         var config = new AlacrittyConfig { Colors = palette };
-        var writer = new ConfigWriterService();
-        writer.WriteConfig(targetPath, config);
+        _writer.WriteConfig(targetPath, config);
         Logger.Information("Theme exported to {Path}", targetPath);
     }
 

@@ -1,0 +1,35 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:AlacrittyUI.ViewModels"
+             xmlns:res="clr-namespace:AlacrittyUI.Resources"
+             x:Class="AlacrittyUI.Views.DebugView"
+             x:DataType="vm:DebugViewModel">
+
+    <StackPanel Spacing="16" Margin="20">
+        <TextBlock Text="{x:Static res:Strings.DebugWarning}" FontSize="12"
+                   Opacity="0.6" TextWrapping="Wrap" Margin="0,0,0,8" />
+
+        <StackPanel Spacing="4">
+            <TextBlock Text="{x:Static res:Strings.DebugLogLevel}" FontSize="14" FontWeight="SemiBold" />
+            <ComboBox ItemsSource="{Binding LogLevelOptions}"
+                      SelectedItem="{Binding LogLevel}" MinWidth="200" />
+        </StackPanel>
+
+        <StackPanel Spacing="4">
+            <TextBlock Text="{x:Static res:Strings.DebugRenderer}" FontSize="14" FontWeight="SemiBold" />
+            <ComboBox ItemsSource="{Binding RendererOptions}"
+                      SelectedItem="{Binding Renderer}" MinWidth="200" />
+        </StackPanel>
+
+        <CheckBox Content="{x:Static res:Strings.DebugRenderTimer}"
+                  IsChecked="{Binding RenderTimer}" />
+        <CheckBox Content="{x:Static res:Strings.DebugPersistentLogging}"
+                  IsChecked="{Binding PersistentLogging}" />
+        <CheckBox Content="{x:Static res:Strings.DebugPrintEvents}"
+                  IsChecked="{Binding PrintEvents}" />
+        <CheckBox Content="{x:Static res:Strings.DebugHighlightDamage}"
+                  IsChecked="{Binding HighlightDamage}" />
+        <CheckBox Content="{x:Static res:Strings.DebugPreferEgl}"
+                  IsChecked="{Binding PreferEgl}" />
+    </StackPanel>
+</UserControl>

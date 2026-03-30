@@ -1,0 +1,63 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:AlacrittyUI.ViewModels"
+             xmlns:res="clr-namespace:AlacrittyUI.Resources"
+             x:Class="AlacrittyUI.Views.HintsView"
+             x:DataType="vm:HintsViewModel">
+
+    <DockPanel Margin="16">
+        <!-- Alphabet -->
+        <StackPanel DockPanel.Dock="Top" Spacing="4" Margin="0,0,0,16">
+            <TextBlock Text="{x:Static res:Strings.HintsAlphabet}" FontSize="14" FontWeight="SemiBold" />
+            <TextBox Text="{Binding Alphabet}" Width="300" HorizontalAlignment="Left"
+                     FontFamily="Consolas,Menlo,monospace" />
+        </StackPanel>
+
+        <!-- Buttons -->
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Spacing="8" Margin="0,12,0,0">
+            <Button Content="{x:Static res:Strings.ButtonAdd}" Command="{Binding AddRuleCommand}" />
+            <Button Content="{x:Static res:Strings.ButtonRemove}" Command="{Binding RemoveRuleCommand}" />
+        </StackPanel>
+
+        <!-- Rules list + detail -->
+        <Grid ColumnDefinitions="*,*" Margin="0,0,0,0">
+            <ListBox Grid.Column="0" ItemsSource="{Binding Rules}" SelectedItem="{Binding SelectedRule}"
+                     Margin="0,0,8,0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate x:DataType="vm:HintRuleViewModel">
+                        <TextBlock>
+                            <Run Text="{Binding Regex, FallbackValue='(new rule)'}" />
+                        </TextBlock>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <!-- Detail panel -->
+            <ScrollViewer Grid.Column="1" IsVisible="{Binding SelectedRule, Converter={x:Static ObjectConverters.IsNotNull}}">
+                <StackPanel Spacing="8" DataContext="{Binding SelectedRule}" Margin="8,0,0,0">
+                    <TextBlock Text="{x:Static res:Strings.LabelRegex}" FontWeight="SemiBold" />
+                    <TextBox Text="{Binding Regex}" FontFamily="Consolas,Menlo,monospace" />
+
+                    <CheckBox Content="{x:Static res:Strings.LabelHyperlinks}" IsChecked="{Binding Hyperlinks}" />
+                    <CheckBox Content="{x:Static res:Strings.LabelPostProcessing}" IsChecked="{Binding PostProcessing}" />
+                    <CheckBox Content="{x:Static res:Strings.LabelPersist}" IsChecked="{Binding Persist}" />
+
+                    <TextBlock Text="{x:Static res:Strings.LabelAction}" FontWeight="SemiBold" />
+                    <ComboBox ItemsSource="{Binding ActionOptions}" SelectedItem="{Binding Action}" Width="200" />
+
+                    <TextBlock Text="{x:Static res:Strings.LabelCommand}" FontWeight="SemiBold" />
+                    <TextBox Text="{Binding Command}" FontFamily="Consolas,Menlo,monospace" />
+
+                    <TextBlock Text="{x:Static res:Strings.LabelBinding}" FontWeight="SemiBold" />
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBox Text="{Binding BindingKey}" Watermark="Key" Width="100" />
+                        <TextBox Text="{Binding BindingMods}" Watermark="Mods" Width="150" />
+                    </StackPanel>
+
+                    <CheckBox Content="{x:Static res:Strings.LabelMouseEnabled}" IsChecked="{Binding MouseEnabled}" />
+                    <TextBox Text="{Binding MouseMods}" Watermark="Mouse Mods" Width="150" />
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </DockPanel>
+</UserControl>

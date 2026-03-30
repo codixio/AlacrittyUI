@@ -1,0 +1,57 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:AlacrittyUI.ViewModels"
+             xmlns:res="clr-namespace:AlacrittyUI.Resources"
+             x:Class="AlacrittyUI.Views.KeyboardView"
+             x:DataType="vm:KeyboardViewModel">
+
+    <DockPanel Margin="16">
+        <!-- Buttons -->
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Spacing="8" Margin="0,12,0,0">
+            <Button Content="{x:Static res:Strings.ButtonAdd}" Command="{Binding AddBindingCommand}" />
+            <Button Content="{x:Static res:Strings.ButtonRemove}" Command="{Binding RemoveBindingCommand}" />
+        </StackPanel>
+
+        <Grid ColumnDefinitions="*,*">
+            <!-- Bindings list -->
+            <ListBox Grid.Column="0" ItemsSource="{Binding Bindings}" SelectedItem="{Binding SelectedBinding}"
+                     Margin="0,0,8,0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate x:DataType="vm:KeyBindingViewModel">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <TextBlock Text="{Binding Mods}" Opacity="0.6" />
+                            <TextBlock Text="{Binding Key}" FontWeight="SemiBold" />
+                            <TextBlock Text="→" Opacity="0.4" />
+                            <TextBlock Text="{Binding Action}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <!-- Detail panel -->
+            <ScrollViewer Grid.Column="1"
+                          IsVisible="{Binding SelectedBinding, Converter={x:Static ObjectConverters.IsNotNull}}">
+                <StackPanel Spacing="8" DataContext="{Binding SelectedBinding}" Margin="8,0,0,0">
+                    <TextBlock Text="{x:Static res:Strings.LabelKey}" FontWeight="SemiBold" />
+                    <TextBox Text="{Binding Key}" Width="200" />
+
+                    <TextBlock Text="{x:Static res:Strings.LabelMods}" FontWeight="SemiBold" />
+                    <TextBox Text="{Binding Mods}" Width="200" Watermark="Control|Shift" />
+
+                    <TextBlock Text="{x:Static res:Strings.LabelMode}" FontWeight="SemiBold" />
+                    <TextBox Text="{Binding Mode}" Width="200" Watermark="~Vi" />
+
+                    <TextBlock Text="{x:Static res:Strings.LabelAction}" FontWeight="SemiBold" />
+                    <ComboBox ItemsSource="{Binding ActionOptions}" SelectedItem="{Binding Action}"
+                              Width="250" IsEditable="True" />
+
+                    <TextBlock Text="{x:Static res:Strings.LabelCommand}" FontWeight="SemiBold" />
+                    <TextBox Text="{Binding Command}" FontFamily="Consolas,Menlo,monospace" />
+
+                    <TextBlock Text="{x:Static res:Strings.LabelChars}" FontWeight="SemiBold" />
+                    <TextBox Text="{Binding Chars}" FontFamily="Consolas,Menlo,monospace" Width="200" />
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </DockPanel>
+</UserControl>

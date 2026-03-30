@@ -21,6 +21,10 @@ public partial class App : Application
     {
         var services = new ServiceCollection();
 
+        var appSettings = new AppSettingsService();
+        appSettings.Load();
+        services.AddSingleton(appSettings);
+
         services.AddSingleton<ConfigDiscoveryService>();
         services.AddSingleton<ConfigReaderService>();
         services.AddSingleton<ConfigWriterService>();
